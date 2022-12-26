@@ -1,5 +1,8 @@
 package com.tngo.mario.window;
 
+import com.tngo.mario.framework.ObjectId;
+import com.tngo.mario.objects.Test;
+
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
@@ -7,6 +10,16 @@ public class Game extends Canvas implements Runnable {
 
     private boolean running = false;
     private Thread thread;
+    // Objects
+    Handler handler;
+
+
+    private void init() {
+        handler = new Handler();
+
+        handler.addGameObject(new Test(100, 100, ObjectId.Test));
+    };
+
     public synchronized void start() {
         if ( running ) return;
 
@@ -16,6 +29,8 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void run() {
+        init();
+        this.requestFocus();
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;
@@ -45,7 +60,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick() {
-
+        handler.tick();
     }
 
     private void render() {
@@ -62,6 +77,7 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.black);
         g.fillRect(0,0, getWidth(), getHeight());
 
+        handler.render(g);
 
         //////////////////////////////////////
         g.dispose();
