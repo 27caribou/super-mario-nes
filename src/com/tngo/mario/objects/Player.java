@@ -56,12 +56,12 @@ public class Player extends GameObject {
 
                 // lEFT collision
                 if (getBoundsLeft().intersects(tempObject.getBounds())) {
-                    x = tempObject.getX() + (width/2);
+                    x = tempObject.getX() + 40;
                 }
 
                 // Right collision
                 if (getBoundsRight().intersects(tempObject.getBounds())) {
-                    x = tempObject.getX() - (width/2);
+                    x = tempObject.getX() - 40;
                 }
             }
         }
