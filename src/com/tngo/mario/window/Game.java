@@ -1,7 +1,9 @@
 package com.tngo.mario.window;
 
+import com.tngo.mario.framework.KeyInput;
 import com.tngo.mario.framework.ObjectId;
-import com.tngo.mario.objects.Test;
+import com.tngo.mario.objects.Block;
+import com.tngo.mario.objects.Player;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -12,12 +14,18 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     // Objects
     Handler handler;
+    public static int WIDTH, HEIGHT;
 
 
     private void init() {
-        handler = new Handler();
+        WIDTH = getWidth();
+        HEIGHT = getHeight();
 
-        handler.addGameObject(new Test(100, 100, ObjectId.Test));
+        handler = new Handler();
+        handler.addGameObject(new Player(100, 100, handler, ObjectId.Player));
+        handler.createLevel();
+
+        this.addKeyListener(new KeyInput(handler));
     };
 
     public synchronized void start() {

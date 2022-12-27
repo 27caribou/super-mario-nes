@@ -1,6 +1,8 @@
 package com.tngo.mario.window;
 
 import com.tngo.mario.framework.GameObject;
+import com.tngo.mario.framework.ObjectId;
+import com.tngo.mario.objects.Block;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -31,5 +33,11 @@ public class Handler {
 
     public void removeObject(GameObject object) {
         this.object.remove(object);
+    }
+
+    public void createLevel() {
+        for (int xx = 0; xx < Game.WIDTH + 32; xx += 32) {
+            addGameObject(new Block(xx, Game.HEIGHT - 32, ObjectId.Block));
+        }
     }
 }
