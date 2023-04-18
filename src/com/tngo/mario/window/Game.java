@@ -7,11 +7,14 @@ import com.tngo.mario.objects.Player;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 public class Game extends Canvas implements Runnable {
 
     private boolean running = false;
     private Thread thread;
+
+    private BufferedImage level = null;
     // Objects
     Handler handler;
     Camera cam;
@@ -22,14 +25,42 @@ public class Game extends Canvas implements Runnable {
         WIDTH = getWidth();
         HEIGHT = getHeight();
 
+        BufferedImageLoader loader = new BufferedImageLoader();
+        level = loader.loadImage("/level.png"); //
+
         handler = new Handler();
         cam = new Camera(0, 0);
 
-        handler.addGameObject(new Player(100, 100, handler, ObjectId.Player));
-        handler.createLevel();
+        loadImageLevel(level);
+//        handler.addGameObject(new Player(100, 100, handler, ObjectId.Player));
+//        handler.createLevel();
 
         this.addKeyListener(new KeyInput(handler));
     };
+
+    private void loadImageLevel(BufferedImage image) {
+        int w = image.getWidth();
+        int h = image.getHeight();
+
+        System.out.println("width, height " + w + " " + h);
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                int pixel = image.getRGB(i,j);
+                int red = (pixel >> 16) & 0xff;
+                int green = (pixel >> 8) & 0xff;
+                int blue = (pixel) & 0xff;
+
+
+                if (red == 255 && green == 255 && blue == 255) {
+                    handler.addGameObject(new Block(i*32, j*32, ObjectId.Block));
+                }
+                if (red == 0 && green == 0 && blue == 255) {
+                    handler.addGameObject(new Player(i*32, j*32, handler, ObjectId.Player));
+                }
+            }
+        }
+
+    }
 
     public synchronized void start() {
         if ( running ) return;
