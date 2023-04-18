@@ -2,6 +2,9 @@ package com.tngo.mario.objects;
 
 import com.tngo.mario.framework.GameObject;
 import com.tngo.mario.framework.ObjectId;
+import com.tngo.mario.framework.Texture;
+import com.tngo.mario.window.Animation;
+import com.tngo.mario.window.Game;
 import com.tngo.mario.window.Handler;
 
 import java.awt.*;
@@ -15,9 +18,15 @@ public class Player extends GameObject {
 
     private Handler handler;
 
+    Texture tex = Game.getInstance();
+
+    private Animation playerWalk;
+
     public Player(float x, float y, Handler handler, ObjectId id){
         super(x, y, id);
         this.handler = handler;
+
+//        playerWalk = new Animation(10, tex.player[1], tex.player[2], ...)
     }
 
     public void tick(LinkedList<GameObject> object) {
@@ -32,6 +41,8 @@ public class Player extends GameObject {
             }
         }
         Collision(object);
+
+//        playerWalk.runAnimation();
     }
 
     private void Collision(LinkedList<GameObject> object) {
@@ -70,6 +81,12 @@ public class Player extends GameObject {
     public void render(Graphics g) {
         g.setColor(Color.blue);
         g.fillRect((int) x, (int) y, (int) width, (int) height);
+
+        if ( velocityX != 0) {
+//            playerWalk.drawAnimation(g, (int) x, (int) y);
+        } else {
+//            draw normal
+        }
 
 //        Graphics2D g2d = (Graphics2D) g;
 //        g.setColor(Color.red);

@@ -2,6 +2,7 @@ package com.tngo.mario.window;
 
 import com.tngo.mario.framework.KeyInput;
 import com.tngo.mario.framework.ObjectId;
+import com.tngo.mario.framework.Texture;
 import com.tngo.mario.objects.Block;
 import com.tngo.mario.objects.Player;
 
@@ -18,12 +19,15 @@ public class Game extends Canvas implements Runnable {
     // Objects
     Handler handler;
     Camera cam;
+    static Texture tex;
     public static int WIDTH, HEIGHT;
 
 
     private void init() {
         WIDTH = getWidth();
         HEIGHT = getHeight();
+
+        tex = new Texture();
 
         BufferedImageLoader loader = new BufferedImageLoader();
         level = loader.loadImage("/level.png"); //
@@ -138,6 +142,10 @@ public class Game extends Canvas implements Runnable {
         //////////////////////////////////////
         g.dispose();
         bs.show();
+    }
+
+    public static Texture getInstance(){
+        return tex;
     }
 
     public static void main(String[] args) {
