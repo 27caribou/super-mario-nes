@@ -1,5 +1,6 @@
 package com.tngo.mario;
 
+import com.tngo.mario.framework2.Level;
 import com.tngo.mario.utils.Window;
 
 import java.awt.*;
@@ -10,7 +11,8 @@ public class Game extends Canvas implements Runnable {
     private boolean running = false;
     private Thread thread;
 
-    public int WIDTH, HEIGHT;
+    public static int WIDTH, HEIGHT;
+    Level currentLevel;
 
     public synchronized void start() {
         if ( running ) return;
@@ -23,6 +25,8 @@ public class Game extends Canvas implements Runnable {
     private void init() {
         WIDTH = getWidth();
         HEIGHT = getHeight();
+
+        currentLevel = new Level();
     }
 
     public void run() {
@@ -58,7 +62,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick() {
-
+        currentLevel.tick();
     }
 
     private void render() {
@@ -69,11 +73,10 @@ public class Game extends Canvas implements Runnable {
         }
 
         Graphics g = bs.getDrawGraphics();
-        Graphics2D g2d = (Graphics2D) g;
         //////////////////////////////////////
 
         // Draw here
-
+        currentLevel.render(g);
 
         //////////////////////////////////////
         g.dispose();
