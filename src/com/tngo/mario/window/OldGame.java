@@ -5,12 +5,13 @@ import com.tngo.mario.framework.ObjectId;
 import com.tngo.mario.framework.Texture;
 import com.tngo.mario.objects.Block;
 import com.tngo.mario.objects.Player;
+import com.tngo.mario.utils.Window;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-public class Game extends Canvas implements Runnable {
+public class OldGame extends Canvas implements Runnable {
 
     private boolean running = false;
     private Thread thread;
@@ -149,6 +150,6 @@ public class Game extends Canvas implements Runnable {
     }
 
     public static void main(String[] args) {
-        new Window(800, 600, "Super Mario Game Prototype", new Game());
+//        new Window(800, 600, "Super Mario Game Prototype", new OldGame());
     }
 }

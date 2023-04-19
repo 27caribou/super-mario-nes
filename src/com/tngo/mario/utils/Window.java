@@ -1,4 +1,6 @@
-package com.tngo.mario.window;
+package com.tngo.mario.utils;
+
+import com.tngo.mario.Game;
 
 import javax.swing.*;
 import java.awt.*;

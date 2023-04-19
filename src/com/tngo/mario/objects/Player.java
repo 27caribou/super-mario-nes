@@ -4,7 +4,7 @@ import com.tngo.mario.framework.GameObject;
 import com.tngo.mario.framework.ObjectId;
 import com.tngo.mario.framework.Texture;
 import com.tngo.mario.window.Animation;
-import com.tngo.mario.window.Game;
+import com.tngo.mario.window.OldGame;
 import com.tngo.mario.window.Handler;
 
 import java.awt.*;
@@ -18,7 +18,7 @@ public class Player extends GameObject {
 
     private Handler handler;
 
-    Texture tex = Game.getInstance();
+    Texture tex = OldGame.getInstance();
 
     private Animation playerWalk;
 
