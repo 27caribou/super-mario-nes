@@ -18,12 +18,17 @@ public class CanvasItem {
         sprites = new Animation(color);
     }
 
+    public float getX() { return x; }
+    public float getY() { return y; }
+    public void setX( float x ) { this.x = x; }
+    public void setY( float y ) { this.y = y; }
+
     public void tick() {
         sprites.runAnimation();
     }
 
     public void render( Graphics g ) {
-        sprites.drawAnimation(g, (int)x, (int)y, (int)width, (int)height);
+        sprites.drawAnimation( g, (int)x, (int)y, (int)width, (int)height );
     }
 
 }
