@@ -2,7 +2,7 @@ package com.tngo.mario.objects2;
 
 import java.awt.*;
 
-public abstract class GameObject extends CanvasItem {
+public class GameObject extends CanvasItem {
 
     protected String type;
     protected float velocityX = 0, velocityY = 0;
@@ -26,7 +26,7 @@ public abstract class GameObject extends CanvasItem {
         this.velocityY = y;
     }
 
-    protected Rectangle getBounds(){
+    public Rectangle getBounds(){
         return new Rectangle( (int)x, (int)y, (int)width, (int)height );
     }
 

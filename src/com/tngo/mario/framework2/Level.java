@@ -11,12 +11,15 @@ import java.awt.*;
 public class Level {
 
     protected Handler handler;
+    protected QuadTree qtree;
     int playerIndex;
 
     public Level( Game game ) {
 
         handler = new Handler();
+        qtree = new QuadTree( new Rectangle( Game.WIDTH, Game.HEIGHT ), 4 );
 
+        // testQTree();
         createTestLevel();
         game.addKeyListener( new KeyboardInput( (Player) handler.getItem(playerIndex) ));
     }
@@ -31,21 +34,40 @@ public class Level {
         g.fillRect(0,0, Game.WIDTH, Game.HEIGHT);
 
         handler.render(g);
+        qtree.display(g);
     }
 
     public void createTestLevel() {
 
         for ( int yy = 0; yy < Game.HEIGHT + 32; yy += 32 ) {
-            handler.addItem( new CanvasItem( 0, yy, 32, 32, "white" ));
-            handler.addItem( new CanvasItem( Game.WIDTH - 32, yy, 32, 32, "white" ));
+            GameObject item = new GameObject( 0, yy, 32, 32, "white", "brick" );
+            GameObject item2 = new GameObject( Game.WIDTH - 32, yy, 32, 32, "white", "brick" );
+            handler.addItem( item );
+            qtree.insert( item );
+            handler.addItem( item2 );
+            qtree.insert( item2 );
         }
 
         for ( int xx = 0; xx < Game.WIDTH + 32; xx += 32 ) {
-            handler.addItem( new CanvasItem( xx, Game.HEIGHT - 32, 32, 32, "white" ));
+            GameObject item = new GameObject( xx, Game.HEIGHT - 32, 32, 32, "white", "brick" );
+            handler.addItem( item );
+            qtree.insert( item );
         }
 
         playerIndex = handler.getSize();
-        handler.addItem( new Player( 100, Game.HEIGHT - 200, 20, 50, "green", "Player" ) );
+        Player player = new Player( 100, Game.HEIGHT - 200, 20, 50, "green", "Player" );
+        handler.addItem( player );
+        qtree.insert( player );
+    }
+
+    public void testQTree() {
+        for ( int i = 0; i < 70; i++ ) {
+            int randX = (int)( Math.random() * Game.WIDTH );
+            int randY = (int)( Math.random() * Game.HEIGHT );
+            GameObject object = new GameObject( randX, randY, 32, 32, "white", "brick" );
+            handler.addItem( object );
+            qtree.insert( object );
+        }
     }
 
 }
