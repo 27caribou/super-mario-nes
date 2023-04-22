@@ -15,6 +15,7 @@ public class Level {
     protected QuadTree qtree;
     int playerIndex;
     Rectangle query;
+    Set<GameObject> queryResult;
 
     public Level( Game game ) {
 
@@ -22,12 +23,7 @@ public class Level {
         qtree = new QuadTree( new Rectangle( Game.WIDTH, Game.HEIGHT ), 4 );
 
         testQTree();
-
-        int size = 150;
-        int randX = (int)( (Math.random() * Game.WIDTH) - size );
-        int randY = (int)( (Math.random() * Game.HEIGHT) - size );
-        query = new Rectangle( randX, randY, size, size );
-
+        testQTreeQuery();
 //        createTestLevel();
 //        game.addKeyListener( new KeyboardInput( (Player) handler.getItem(playerIndex) ));
     }
@@ -44,12 +40,13 @@ public class Level {
         handler.render(g);
         qtree.display(g);
 
-        g.setColor( Color.green );
-        g.drawRect( query.x, query.y, query.width, query.height );
-        Set<GameObject> result = qtree.query( query );
-        for ( GameObject object : result ) {
-            Rectangle rect = object.getBounds();
-            g.drawRect( rect.x, rect.y, rect.width, rect.height );
+        if ( query != null ) {
+            g.setColor( Color.green );
+            g.drawRect( query.x, query.y, query.width, query.height );
+            for ( GameObject object : queryResult ) {
+                Rectangle rect = object.getBounds();
+                g.drawRect( rect.x, rect.y, rect.width, rect.height );
+            }
         }
     }
 
@@ -84,6 +81,15 @@ public class Level {
             handler.addItem( object );
             qtree.insert( object );
         }
+    }
+
+    public void testQTreeQuery() {
+        int size = 150;
+        int randX = (int)( (Math.random() * Game.WIDTH) - size );
+        int randY = (int)( (Math.random() * Game.HEIGHT) - size );
+        query = new Rectangle( randX, randY, size, size );
+
+        queryResult = qtree.query( query );
     }
 
 }
