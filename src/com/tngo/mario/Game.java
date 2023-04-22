@@ -26,7 +26,7 @@ public class Game extends Canvas implements Runnable {
         WIDTH = getWidth();
         HEIGHT = getHeight();
 
-        currentLevel = new Level();
+        currentLevel = new Level( this );
     }
 
     public void run() {

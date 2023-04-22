@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 public class Handler {
 
-    public LinkedList<CanvasItem> items = new LinkedList<>();
+    private LinkedList<CanvasItem> items = new LinkedList<>();
     private CanvasItem tempItem;
 
 
@@ -20,18 +20,24 @@ public class Handler {
         }
     }
 
-    public void render(Graphics g) {
+    public void render( Graphics g ) {
         for ( int i = 0; i < items.size(); i++ ) {
             tempItem = items.get(i);
             tempItem.render(g);
         }
     }
 
-    public void addCanvasItem(CanvasItem newItem) {
+    public int getSize() { return items.size(); }
+
+    public CanvasItem getItem( int i ) {
+        return items.get(i);
+    }
+
+    public void addItem( CanvasItem newItem ) {
         items.add(newItem);
     }
 
-    public void removeItem(CanvasItem newItem) {
+    public void removeItem( CanvasItem newItem ) {
         items.remove(newItem);
     }
 

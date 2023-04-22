@@ -2,11 +2,12 @@ package com.tngo.mario.objects2;
 
 import java.awt.*;
 
-public class GameObject extends CanvasItem {
+public abstract class GameObject extends CanvasItem {
 
     protected String type;
     protected float velocityX = 0, velocityY = 0;
-    private float gravity = 0.5f;
+//    private final float MAX_SPEED = 10;
+    protected float gravity = 0.5f;
 
     public GameObject(float x, float y, float width, float height, String color, String type) {
         super(x, y, width, height, color);
@@ -25,11 +26,16 @@ public class GameObject extends CanvasItem {
         this.velocityY = y;
     }
 
+    protected Rectangle getBounds(){
+        return new Rectangle( (int)x, (int)y, (int)width, (int)height );
+    }
+
     public void tick() {
         super.tick();
 
         x += velocityX;
         y += velocityY;
+
     }
 
 }
