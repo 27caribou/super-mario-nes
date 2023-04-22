@@ -7,21 +7,29 @@ import com.tngo.mario.objects2.Player;
 import com.tngo.mario.utils.KeyboardInput;
 
 import java.awt.*;
+import java.util.Set;
 
 public class Level {
 
     protected Handler handler;
     protected QuadTree qtree;
     int playerIndex;
+    Rectangle query;
 
     public Level( Game game ) {
 
         handler = new Handler();
         qtree = new QuadTree( new Rectangle( Game.WIDTH, Game.HEIGHT ), 4 );
 
-        // testQTree();
-        createTestLevel();
-        game.addKeyListener( new KeyboardInput( (Player) handler.getItem(playerIndex) ));
+        testQTree();
+
+        int size = 150;
+        int randX = (int)( (Math.random() * Game.WIDTH) - size );
+        int randY = (int)( (Math.random() * Game.HEIGHT) - size );
+        query = new Rectangle( randX, randY, size, size );
+
+//        createTestLevel();
+//        game.addKeyListener( new KeyboardInput( (Player) handler.getItem(playerIndex) ));
     }
 
     public void tick() {
@@ -35,6 +43,14 @@ public class Level {
 
         handler.render(g);
         qtree.display(g);
+
+        g.setColor( Color.green );
+        g.drawRect( query.x, query.y, query.width, query.height );
+        Set<GameObject> result = qtree.query( query );
+        for ( GameObject object : result ) {
+            Rectangle rect = object.getBounds();
+            g.drawRect( rect.x, rect.y, rect.width, rect.height );
+        }
     }
 
     public void createTestLevel() {
@@ -61,7 +77,7 @@ public class Level {
     }
 
     public void testQTree() {
-        for ( int i = 0; i < 70; i++ ) {
+        for ( int i = 0; i < 80; i++ ) {
             int randX = (int)( Math.random() * Game.WIDTH );
             int randY = (int)( Math.random() * Game.HEIGHT );
             GameObject object = new GameObject( randX, randY, 32, 32, "white", "brick" );

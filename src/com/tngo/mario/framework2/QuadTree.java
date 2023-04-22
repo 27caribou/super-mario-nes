@@ -5,7 +5,9 @@ import com.tngo.mario.objects2.GameObject;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class QuadTree {
 
@@ -29,17 +31,17 @@ public class QuadTree {
             if ( objects.size() > capacity ) subDivide();
 
         } else {
-            if ( children[0].insert( object ) ) return true;
-            if ( children[1].insert( object ) ) return true;
-            if ( children[2].insert( object ) ) return true;
-            children[3].insert( object );
+            boolean inserted = false;
+            for ( int i = 0; i < 4; i++ ) {
+                if ( children[i].insert(object) ) inserted = true;
+            }
+            return inserted;
         }
 
         return true;
     }
 
     public void subDivide() {
-        System.out.println("Subdivide");
         int subWidth = boundary.width / 2;
         int subHeight = boundary.height / 2;
         int x = boundary.x;
@@ -60,8 +62,27 @@ public class QuadTree {
             children[3].insert( obj );
         }
 
-        objects = new ArrayList<>();
+        objects.clear();
         isDivided = true;
+    }
+
+    public Set<GameObject> query( Rectangle range ) {
+        Set<GameObject> found = new HashSet<>();
+
+        if ( !boundary.intersects(range) ) return found;
+        if ( !isDivided ) {
+            for ( int i = 0; i < objects.size(); i++ ) {
+                GameObject object = objects.get(i);
+                if ( object.getBounds().intersects(range) ) found.add( object );
+            }
+        } else {
+            found.addAll( children[0].query(range) );
+            found.addAll( children[1].query(range) );
+            found.addAll( children[2].query(range) );
+            found.addAll( children[3].query(range) );
+        }
+
+        return found;
     }
 
     public void display( Graphics g ) {
