@@ -19,7 +19,8 @@ public class KeyboardInput extends KeyAdapter {
         if ( key == KeyEvent.VK_ESCAPE ) { System.exit(1); }
         if ( key == KeyEvent.VK_RIGHT ) player.setVelocityX(5);
         if ( key == KeyEvent.VK_LEFT ) player.setVelocityX(-5);
-
+        if ( key == KeyEvent.VK_UP ) player.setVelocityY(-5);
+        if ( key == KeyEvent.VK_DOWN ) player.setVelocityY(5);
     }
 
     public void keyReleased( KeyEvent e ) {
@@ -27,6 +28,8 @@ public class KeyboardInput extends KeyAdapter {
 
         if ( key == KeyEvent.VK_RIGHT ) player.setVelocityX(0);
         if ( key == KeyEvent.VK_LEFT ) player.setVelocityX(0);
+        if ( key == KeyEvent.VK_UP ) player.setVelocityY(0);
+        if ( key == KeyEvent.VK_DOWN ) player.setVelocityY(0);
     }
 
 }

@@ -14,8 +14,7 @@ public class Level {
     protected Handler handler;
     protected QuadTree qtree;
     int playerIndex;
-    Rectangle query;
-    Set<GameObject> queryResult;
+    Set<GameObject> query;
 
     public Level( Game game ) {
 
@@ -23,13 +22,18 @@ public class Level {
         qtree = new QuadTree( new Rectangle( Game.WIDTH, Game.HEIGHT ), 4 );
 
         testQTree();
-        testQTreeQuery();
 //        createTestLevel();
-//        game.addKeyListener( new KeyboardInput( (Player) handler.getItem(playerIndex) ));
+        game.addKeyListener( new KeyboardInput( (Player) handler.getItem(playerIndex) ));
     }
 
     public void tick() {
         handler.tick();
+
+        qtree.flush();
+        for ( int i = 0; i < handler.getSize(); i++ ) {
+            qtree.insert( (GameObject) handler.getItem(i) );
+        }
+        query = qtree.query( ((Player) handler.getItem(playerIndex)).getBounds() );
     }
 
     public void render( Graphics g ) {
@@ -41,9 +45,9 @@ public class Level {
         qtree.display(g);
 
         if ( query != null ) {
-            g.setColor( Color.green );
-            g.drawRect( query.x, query.y, query.width, query.height );
-            for ( GameObject object : queryResult ) {
+            g.setColor( Color.red );
+//            g.drawRect( query.x, query.y, query.width, query.height );
+            for ( GameObject object : query ) {
                 Rectangle rect = object.getBounds();
                 g.drawRect( rect.x, rect.y, rect.width, rect.height );
             }
@@ -79,17 +83,14 @@ public class Level {
             int randY = (int)( Math.random() * Game.HEIGHT );
             GameObject object = new GameObject( randX, randY, 32, 32, "white", "brick" );
             handler.addItem( object );
-            qtree.insert( object );
         }
-    }
 
-    public void testQTreeQuery() {
         int size = 150;
         int randX = (int)( (Math.random() * Game.WIDTH) - size );
         int randY = (int)( (Math.random() * Game.HEIGHT) - size );
-        query = new Rectangle( randX, randY, size, size );
-
-        queryResult = qtree.query( query );
+        playerIndex = handler.getSize();
+        Player player = new Player( randX, randY, size, size, "red", "Player" );
+        handler.addItem( player );
     }
 
 }

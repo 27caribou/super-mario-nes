@@ -96,4 +96,10 @@ public class QuadTree {
         }
     }
 
+    public void flush() {
+        objects = new ArrayList<>();
+        isDivided = false;
+        children = null;
+    }
+
 }
