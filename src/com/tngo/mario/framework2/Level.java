@@ -21,8 +21,8 @@ public class Level {
         handler = new Handler();
         qtree = new QuadTree( new Rectangle( Game.WIDTH, Game.HEIGHT ), 4 );
 
-        testQTree();
-//        createTestLevel();
+//        testQTree();
+        createTestLevel();
         game.addKeyListener( new KeyboardInput( (Player) handler.getItem(playerIndex) ));
     }
 
@@ -46,7 +46,6 @@ public class Level {
 
         if ( query != null ) {
             g.setColor( Color.red );
-//            g.drawRect( query.x, query.y, query.width, query.height );
             for ( GameObject object : query ) {
                 Rectangle rect = object.getBounds();
                 g.drawRect( rect.x, rect.y, rect.width, rect.height );
@@ -85,7 +84,7 @@ public class Level {
             handler.addItem( object );
         }
 
-        int size = 150;
+        int size = 75;
         int randX = (int)( (Math.random() * Game.WIDTH) - size );
         int randY = (int)( (Math.random() * Game.HEIGHT) - size );
         playerIndex = handler.getSize();
