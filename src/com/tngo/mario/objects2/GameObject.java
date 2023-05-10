@@ -19,10 +19,10 @@ public class GameObject extends CanvasItem {
     public float getVelocityY() {
         return velocityY;
     }
-    public void setVelocityX(float x) {
+    public void setVelocityX( float x ) {
         this.velocityX = x;
     }
-    public void setVelocityY(float y) {
+    public void setVelocityY( float y ) {
         this.velocityY = y;
     }
 
@@ -35,7 +35,6 @@ public class GameObject extends CanvasItem {
 
         x += velocityX;
         y += velocityY;
-
     }
 
 }
