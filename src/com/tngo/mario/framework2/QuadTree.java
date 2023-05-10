@@ -56,10 +56,9 @@ public class QuadTree {
         for ( int i = 0; i <= capacity; i++ ) {
             GameObject obj = objects.get(i);
 
-            // Allow children to decide whether to add object (may have been overlapping)
-            children[0].insert( obj );
-            children[1].insert( obj );
-            children[2].insert( obj );
+            if ( children[0].insert( obj ) ) continue;
+            if ( children[1].insert( obj ) ) continue;
+            if ( children[2].insert( obj ) ) continue;
             children[3].insert( obj );
         }
 
