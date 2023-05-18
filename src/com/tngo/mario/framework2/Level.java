@@ -7,6 +7,8 @@ import com.tngo.mario.objects2.Player;
 import com.tngo.mario.utils.KeyboardInput;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Set;
 
 public class Level {
@@ -24,6 +26,11 @@ public class Level {
 //        testQTree();
         createTestLevel();
         game.addKeyListener( new KeyboardInput( (Player) handler.getItem(playerIndex) ));
+        game.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("clicked");
+            }
+        });
     }
 
     public void tick() {
@@ -42,14 +49,15 @@ public class Level {
         g.fillRect(0,0, Game.WIDTH, Game.HEIGHT);
 
         handler.render(g);
-        qtree.display(g);
+//        qtree.display(g);
 
         if ( query != null ) {
             g.setColor( Color.red );
-//            g.drawRect( query.x, query.y, query.width, query.height );
             for ( GameObject object : query ) {
                 Rectangle rect = object.getBounds();
                 g.drawRect( rect.x, rect.y, rect.width, rect.height );
+
+                // Check where they were hit
             }
         }
     }
