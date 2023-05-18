@@ -6,6 +6,10 @@ import com.tngo.mario.objects2.GameObject;
 import com.tngo.mario.objects2.Player;
 import com.tngo.mario.utils.KeyboardInput;
 
+import com.tngo.mario.tests.CollisionTest;
+import com.tngo.mario.tests.LevelTest;
+import com.tngo.mario.tests.QTreeTest;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,17 +23,18 @@ public class Level {
     protected Handler handler;
     protected QuadTree qtree;
     int playerIndex;
-    Set<GameObject> query;
-    Line2D testLine;
-    List<Rectangle> lineQuery;
+
+    LevelTest test1, test2;
 
     public Level( Game game ) {
         handler = new Handler();
         qtree = new QuadTree( new Rectangle( Game.WIDTH, Game.HEIGHT ), 4 );
 
-        testQTree();
+        test1 = new QTreeTest(handler);
+        test2 = new CollisionTest(game);
 //        createTestLevel();
-        testCollision(game);
+
+        findPlayer();
         game.addKeyListener( new KeyboardInput( (Player) handler.getItem(playerIndex) ));
     }
 
@@ -40,17 +45,9 @@ public class Level {
         for ( int i = 0; i < handler.getSize(); i++ ) {
             qtree.insert( (GameObject) handler.getItem(i) );
         }
-        query = qtree.query( ((Player) handler.getItem(playerIndex)).getBounds() );
 
-        if ( testLine != null ) {
-            lineQuery.clear();
-            for ( int i = 0; i < handler.getSize(); i++ ) {
-                Rectangle bounds = ((GameObject) handler.getItem(i)).getBounds();
-                if ( testLine.intersects(bounds) ) {
-                    lineQuery.add(bounds);
-                }
-            }
-        }
+        test1.tick( handler, qtree );
+        test2.tick( handler, qtree );
     }
 
     public void render( Graphics g ) {
@@ -61,25 +58,15 @@ public class Level {
         handler.render(g);
 //        qtree.display(g);
 
-        if ( query != null ) {
-            g.setColor( Color.red );
-            for ( GameObject object : query ) {
-                Rectangle rect = object.getBounds();
-                g.drawRect( rect.x, rect.y, rect.width, rect.height );
+        test1.render(g);
+        test2.render(g);
+    }
 
-                // Check where they were hit
-            }
-        }
-
-        if ( testLine != null ) {
-            g.setColor( Color.yellow );
-            Graphics2D g2 = (Graphics2D) g;
-            g2.draw(testLine);
-
-            if ( lineQuery.size() > 0 ) {
-                for ( Rectangle rect : lineQuery ) {
-                    g.drawRect( rect.x, rect.y, rect.width, rect.height );
-                }
+    private void findPlayer() {
+        for ( int i = 0; i < handler.getSize(); i++ ) {
+            if ( ((GameObject) handler.getItem(i)).getType() == "Player" ) {
+                playerIndex = i;
+                break;
             }
         }
     }
@@ -102,43 +89,9 @@ public class Level {
         }
 
         playerIndex = handler.getSize();
-        Player player = new Player( 100, Game.HEIGHT - 200, 20, 50, "green", "Player" );
+        Player player = new Player( 100, Game.HEIGHT - 200, 20, 50, "green" );
         handler.addItem( player );
         qtree.insert( player );
-    }
-
-    public void testQTree() {
-        for ( int i = 0; i < 80; i++ ) {
-            int randX = (int)( Math.random() * Game.WIDTH );
-            int randY = (int)( Math.random() * Game.HEIGHT );
-            GameObject object = new GameObject( randX, randY, 32, 32, "white", "brick" );
-            handler.addItem( object );
-        }
-
-        int size = 75;
-        int randX = (int)( (Math.random() * Game.WIDTH) - size );
-        int randY = (int)( (Math.random() * Game.HEIGHT) - size );
-        playerIndex = handler.getSize();
-        Player player = new Player( randX, randY, size, size, "red", "Player" );
-        handler.addItem( player );
-    }
-
-    public void testCollision( Game game ) {
-
-        testLine = new Line2D.Double();
-        lineQuery = new ArrayList<>();
-        testLine.setLine(20,20,20,20);
-
-        game.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                testLine.setLine(e.getX(),e.getY(),e.getX(),e.getY());
-            }
-        });
-        game.addMouseMotionListener(new MouseAdapter() {
-            public void mouseDragged(MouseEvent e) {
-                testLine.setLine(testLine.getX1(),testLine.getY1(),e.getX(),e.getY());
-            }
-        });
     }
 
 }
