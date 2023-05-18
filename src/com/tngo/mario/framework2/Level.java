@@ -9,6 +9,9 @@ import com.tngo.mario.utils.KeyboardInput;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Line2D;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class Level {
@@ -17,20 +20,17 @@ public class Level {
     protected QuadTree qtree;
     int playerIndex;
     Set<GameObject> query;
+    Line2D testLine;
+    List<Rectangle> lineQuery;
 
     public Level( Game game ) {
-
         handler = new Handler();
         qtree = new QuadTree( new Rectangle( Game.WIDTH, Game.HEIGHT ), 4 );
 
-//        testQTree();
-        createTestLevel();
+        testQTree();
+//        createTestLevel();
+        testCollision(game);
         game.addKeyListener( new KeyboardInput( (Player) handler.getItem(playerIndex) ));
-        game.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("clicked");
-            }
-        });
     }
 
     public void tick() {
@@ -41,6 +41,16 @@ public class Level {
             qtree.insert( (GameObject) handler.getItem(i) );
         }
         query = qtree.query( ((Player) handler.getItem(playerIndex)).getBounds() );
+
+        if ( testLine != null ) {
+            lineQuery.clear();
+            for ( int i = 0; i < handler.getSize(); i++ ) {
+                Rectangle bounds = ((GameObject) handler.getItem(i)).getBounds();
+                if ( testLine.intersects(bounds) ) {
+                    lineQuery.add(bounds);
+                }
+            }
+        }
     }
 
     public void render( Graphics g ) {
@@ -58,6 +68,18 @@ public class Level {
                 g.drawRect( rect.x, rect.y, rect.width, rect.height );
 
                 // Check where they were hit
+            }
+        }
+
+        if ( testLine != null ) {
+            g.setColor( Color.yellow );
+            Graphics2D g2 = (Graphics2D) g;
+            g2.draw(testLine);
+
+            if ( lineQuery.size() > 0 ) {
+                for ( Rectangle rect : lineQuery ) {
+                    g.drawRect( rect.x, rect.y, rect.width, rect.height );
+                }
             }
         }
     }
@@ -99,6 +121,24 @@ public class Level {
         playerIndex = handler.getSize();
         Player player = new Player( randX, randY, size, size, "red", "Player" );
         handler.addItem( player );
+    }
+
+    public void testCollision( Game game ) {
+
+        testLine = new Line2D.Double();
+        lineQuery = new ArrayList<>();
+        testLine.setLine(20,20,20,20);
+
+        game.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                testLine.setLine(e.getX(),e.getY(),e.getX(),e.getY());
+            }
+        });
+        game.addMouseMotionListener(new MouseAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                testLine.setLine(testLine.getX1(),testLine.getY1(),e.getX(),e.getY());
+            }
+        });
     }
 
 }
