@@ -31,7 +31,7 @@ public class Level {
         qtree = new QuadTree( new Rectangle( Game.WIDTH, Game.HEIGHT ), 4 );
 
         test1 = new QTreeTest(handler);
-        test2 = new CollisionTest(game);
+        test2 = new CollisionTest(game, 2);
 //        createTestLevel();
 
         findPlayer();
