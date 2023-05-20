@@ -30,9 +30,9 @@ public class Level {
         handler = new Handler();
         qtree = new QuadTree( new Rectangle( Game.WIDTH, Game.HEIGHT ), 4 );
 
-        test1 = new QTreeTest(handler);
-        test2 = new CollisionTest(game, 2);
-//        createTestLevel();
+//        test1 = new QTreeTest(handler);
+//        test2 = new CollisionTest(game, 2);
+        createTestLevel();
 
         findPlayer();
         game.addKeyListener( new KeyboardInput( (Player) handler.getItem(playerIndex) ));
@@ -46,8 +46,8 @@ public class Level {
             qtree.insert( (GameObject) handler.getItem(i) );
         }
 
-        test1.tick( handler, qtree );
-        test2.tick( handler, qtree );
+        if ( test1 != null ) test1.tick( handler, qtree );
+        if ( test2 != null ) test2.tick( handler, qtree );
     }
 
     public void render( Graphics g ) {
@@ -58,8 +58,8 @@ public class Level {
         handler.render(g);
 //        qtree.display(g);
 
-        test1.render(g);
-        test2.render(g);
+        if ( test1 != null ) test1.render(g);
+        if ( test2 != null ) test2.render(g);
     }
 
     private void findPlayer() {
