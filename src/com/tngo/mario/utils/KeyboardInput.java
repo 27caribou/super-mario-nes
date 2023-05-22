@@ -26,7 +26,7 @@ public class KeyboardInput extends KeyAdapter {
             player.setVelocityX(-5);
             movedLeft = true;
         }
-        if ( key == KeyEvent.VK_SPACE && !player.isFalling() ) player.setVelocityY(-5);
+        if ( key == KeyEvent.VK_SPACE && !player.isFalling() ) player.setVelocityY(-10);
 //        if ( key == KeyEvent.VK_DOWN ) player.setVelocityY(5);
     }
 

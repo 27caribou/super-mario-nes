@@ -86,6 +86,28 @@ public class QuadTree {
         return found;
     }
 
+    public Set<GameObject> query( GameObject target ) {
+        Set<GameObject> found = new HashSet<>();
+        Rectangle targetRange = target.getBounds();
+
+        if ( !boundary.intersects(targetRange) ) return found;
+        if ( !isDivided ) {
+            for ( int i = 0; i < objects.size(); i++ ) {
+                GameObject object = objects.get(i);
+                if ( object.getBounds().intersects(targetRange) && object != target ) {
+                    found.add( object );
+                }
+            }
+        } else {
+            found.addAll( children[0].query(target) );
+            found.addAll( children[1].query(target) );
+            found.addAll( children[2].query(target) );
+            found.addAll( children[3].query(target) );
+        }
+
+        return found;
+    }
+
     public void display( Graphics g ) {
         g.setColor( Color.pink );
         g.drawRect( boundary.x, boundary.y, boundary.width, boundary.height );

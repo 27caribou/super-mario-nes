@@ -11,17 +11,12 @@ import com.tngo.mario.tests.LevelTest;
 import com.tngo.mario.tests.QTreeTest;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Line2D;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public class Level {
 
     protected Handler handler;
-    protected QuadTree qtree;
+    protected static QuadTree qtree;
     int playerIndex;
 
     LevelTest test1, test2;
@@ -39,12 +34,12 @@ public class Level {
     }
 
     public void tick() {
-        handler.tick();
-
         qtree.flush();
         for ( int i = 0; i < handler.getSize(); i++ ) {
             qtree.insert( (GameObject) handler.getItem(i) );
         }
+
+        handler.tick();
 
         if ( test1 != null ) test1.tick( handler, qtree );
         if ( test2 != null ) test2.tick( handler, qtree );
@@ -71,6 +66,8 @@ public class Level {
         }
     }
 
+    public static QuadTree getQTree() { return qtree; }
+
     public void createTestLevel() {
 
         for ( int yy = 0; yy < Game.HEIGHT + 32; yy += 32 ) {
@@ -88,8 +85,14 @@ public class Level {
             qtree.insert( item );
         }
 
+        for ( int xx = 150; xx < Game.WIDTH - 150; xx += 32 ) {
+            GameObject item = new GameObject( xx, Game.HEIGHT - 170, 32, 32, "white", "brick" );
+            handler.addItem( item );
+            qtree.insert( item );
+        }
+
         playerIndex = handler.getSize();
-        Player player = new Player( 100, Game.HEIGHT - 200, 20, 50, "green" );
+        Player player = new Player( 100, Game.HEIGHT - 120, 20, 50, "green" );
         handler.addItem( player );
         qtree.insert( player );
     }

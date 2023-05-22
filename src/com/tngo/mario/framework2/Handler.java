@@ -1,6 +1,5 @@
 package com.tngo.mario.framework2;
 
-import com.tngo.mario.Game;
 import com.tngo.mario.objects2.CanvasItem;
 
 import java.awt.*;
@@ -10,7 +9,6 @@ public class Handler {
 
     private LinkedList<CanvasItem> items = new LinkedList<>();
     private CanvasItem tempItem;
-
 
     // Update
     public void tick() {
