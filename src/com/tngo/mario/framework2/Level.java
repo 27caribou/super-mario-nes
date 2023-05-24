@@ -92,7 +92,7 @@ public class Level {
         }
 
         playerIndex = handler.getSize();
-        Player player = new Player( 100, Game.HEIGHT - 120, 20, 50, "green" );
+        Player player = new Player( 100, Game.HEIGHT - 130, 20, 50, "green" );
         handler.addItem( player );
         qtree.insert( player );
     }

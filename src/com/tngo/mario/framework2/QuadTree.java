@@ -4,10 +4,8 @@ import com.tngo.mario.Game;
 import com.tngo.mario.objects2.GameObject;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
 
 public class QuadTree {
 
@@ -106,6 +104,21 @@ public class QuadTree {
         }
 
         return found;
+    }
+
+    public List<GameObject> sortedQuery( GameObject object ) {
+        Set<GameObject> query = query( object );
+        List<GameObject> sorted = new ArrayList<>(query);
+        if ( sorted.size() == 0 ) return sorted;
+
+        Rectangle r = object.getBounds();
+        sorted.sort((o1, o2) -> {
+            Rectangle i1 = r.intersection(o1.getBounds());
+            Rectangle i2 = r.intersection(o2.getBounds());
+            return (i1.width * i1.height) - (i2.width * i2.height);
+        });
+
+        return sorted;
     }
 
     public void display( Graphics g ) {

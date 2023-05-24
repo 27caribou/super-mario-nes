@@ -4,6 +4,7 @@ import static com.tngo.mario.framework2.Level.getQTree;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.util.List;
 import java.util.Set;
 
 
@@ -59,10 +60,10 @@ public class GameObject extends CanvasItem {
     }
 
     protected void checkCollisions() {
-        neighbors = getQTree().query( this );
-        if ( neighbors.size() == 0 ) return;
+        List<GameObject> sortedNeighbors = getQTree().sortedQuery(this);
+        if ( sortedNeighbors.size() == 0 ) return;
 
-        for ( GameObject neighbor : neighbors ) {
+        for ( GameObject neighbor : sortedNeighbors ) {
             Rectangle neighborRect = neighbor.getBounds();
             int contactPoint = rectIntersection( neighborRect );
             if ( contactPoint == 0 ) continue;
@@ -70,24 +71,24 @@ public class GameObject extends CanvasItem {
             float diff;
             switch ( contactPoint ){
                 case 1:
-                    diff = neighborRect.y + neighborRect.height - y;
-                    y += diff;
-                    velocityY = 0;
+                    diff = neighborRect.y + neighborRect.height - y + 1;
+                    y += diff; // y -= velocityY;
+                    if ( velocityY < 0 ) velocityY = 0;
                     break;
                 case 2:
-                    diff = x + width - neighborRect.x;
-                    x -= diff;
+                    diff = x + width - neighborRect.x + 2;
+                    x -= diff; // x -= velocityX;
                     velocityX = 0;
                     break;
                 case 3:
-                    diff = y + height - neighborRect.y;
-                    y -= diff;
+                    diff = y + height - neighborRect.y + 1;
+                    y -= diff; // y -= velocityY;
                     falling = false;
-                    velocityY = 0;
+                    if ( velocityY > 0 ) velocityY = 0;
                     break;
                 case 4:
-                    diff = neighborRect.x + neighborRect.width - x;
-                    x += diff;
+                    diff = neighborRect.x + neighborRect.width - x + 2;
+                    x += diff; // x -= velocityX;
                     velocityX = 0;
                     break;
             }
