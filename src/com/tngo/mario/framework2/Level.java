@@ -11,7 +11,6 @@ import com.tngo.mario.tests.LevelTest;
 import com.tngo.mario.tests.QTreeTest;
 
 import java.awt.*;
-import java.util.Set;
 
 public class Level {
 

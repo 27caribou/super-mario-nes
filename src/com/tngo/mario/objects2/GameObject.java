@@ -40,11 +40,9 @@ public class GameObject extends CanvasItem {
 
         x += velocityX;
         y += velocityY;
-
+        checkCollisions();
         if ( velocityY != 0 && !falling ) falling = true;
         if ( falling ) velocityY += gravity;
-
-        checkCollisions();
     }
 
     public void render( Graphics g ) {
@@ -60,6 +58,7 @@ public class GameObject extends CanvasItem {
     }
 
     protected void checkCollisions() {
+        if ( velocityX == 0 && velocityY == 0 && !falling ) return;
         List<GameObject> sortedNeighbors = getQTree().sortedQuery(this);
         if ( sortedNeighbors.size() == 0 ) return;
 
@@ -76,7 +75,7 @@ public class GameObject extends CanvasItem {
                     if ( velocityY < 0 ) velocityY = 0;
                     break;
                 case 2:
-                    diff = x + width - neighborRect.x + 2;
+                    diff = x + width - neighborRect.x + 1;
                     x -= diff; // x -= velocityX;
                     velocityX = 0;
                     break;
@@ -87,11 +86,12 @@ public class GameObject extends CanvasItem {
                     if ( velocityY > 0 ) velocityY = 0;
                     break;
                 case 4:
-                    diff = neighborRect.x + neighborRect.width - x + 2;
+                    diff = neighborRect.x + neighborRect.width - x + 1;
                     x += diff; // x -= velocityX;
                     velocityX = 0;
                     break;
             }
+            handleCollision(contactPoint, neighbor);
         }
     }
 
@@ -150,8 +150,6 @@ public class GameObject extends CanvasItem {
 
     protected int rectIntersection( Rectangle rect ) {
         // Assuming that there was no collision unless movement occurred
-        if ( velocityX == 0 && velocityY == 0 ) return 0;
-
         Rectangle objectRect = getBounds();
         Rectangle expanded_target = new Rectangle(
             rect.x - (objectRect.width/2),
@@ -166,6 +164,10 @@ public class GameObject extends CanvasItem {
         testLine.setLine( line_x, line_y, line_x + velocityX, line_y + velocityY );
 
         return lineIntersection( testLine, expanded_target );
+    }
+
+    protected void handleCollision( int contactPoint, GameObject neighbor ) {
+        // Do nothing
     }
 
 }

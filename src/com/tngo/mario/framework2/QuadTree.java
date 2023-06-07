@@ -115,7 +115,7 @@ public class QuadTree {
         sorted.sort((o1, o2) -> {
             Rectangle i1 = r.intersection(o1.getBounds());
             Rectangle i2 = r.intersection(o2.getBounds());
-            return (i1.width * i1.height) - (i2.width * i2.height);
+            return (i2.width * i2.height) - (i1.width * i1.height);
         });
 
         return sorted;
