@@ -13,10 +13,10 @@ public class GameObject extends CanvasItem {
     protected String type;
     protected float velocityX = 0, velocityY = 0;
     protected boolean falling = false;
-//    private final float MAX_SPEED = 10;
+//    private final float MAX_SPEED = 10; Also to be used when falling
     protected final float gravity = 0.5f;
 
-    Set<GameObject> neighbors;
+//    Set<GameObject> neighbors;
 
     public GameObject(float x, float y, float width, float height, String color, String type) {
         super(x, y, width, height, color);
@@ -41,30 +41,31 @@ public class GameObject extends CanvasItem {
         x += velocityX;
         y += velocityY;
         checkCollisions();
-        if ( velocityY != 0 && !falling ) falling = true;
+        checkFalling();
         if ( falling ) velocityY += gravity;
     }
 
     public void render( Graphics g ) {
         super.render(g);
 
-        if ( neighbors != null && neighbors.size() > 0 ) {
-            g.setColor(Color.ORANGE);
-            for ( GameObject object : neighbors ) {
-                Rectangle rect = object.getBounds();
-                g.drawRect( rect.x, rect.y, rect.width, rect.height );
-            }
-        }
+//        if ( neighbors != null && neighbors.size() > 0 ) {
+//            g.setColor(Color.ORANGE);
+//            for ( GameObject object : neighbors ) {
+//                Rectangle rect = object.getBounds();
+//                g.drawRect( rect.x, rect.y, rect.width, rect.height );
+//            }
+//        }
     }
 
     protected void checkCollisions() {
         if ( velocityX == 0 && velocityY == 0 && !falling ) return;
-        List<GameObject> sortedNeighbors = getQTree().sortedQuery(this);
+        List<GameObject> sortedNeighbors = getQTree().sortedQuery( getBounds() );
+        sortedNeighbors.removeIf( i -> i == this );
         if ( sortedNeighbors.size() == 0 ) return;
 
         for ( GameObject neighbor : sortedNeighbors ) {
             Rectangle neighborRect = neighbor.getBounds();
-            int contactPoint = rectIntersection( neighborRect );
+            int contactPoint = rectIntersection( getBounds(), neighborRect );
             if ( contactPoint == 0 ) continue;
 
             float diff;
@@ -72,6 +73,7 @@ public class GameObject extends CanvasItem {
                 case 1:
                     diff = neighborRect.y + neighborRect.height - y + 1;
                     y += diff; // y -= velocityY;
+                    falling = true;
                     if ( velocityY < 0 ) velocityY = 0;
                     break;
                 case 2:
@@ -148,22 +150,41 @@ public class GameObject extends CanvasItem {
 
     }
 
-    protected int rectIntersection( Rectangle rect ) {
+    protected int rectIntersection( Rectangle origin, Rectangle rect ) {
         // Assuming that there was no collision unless movement occurred
-        Rectangle objectRect = getBounds();
         Rectangle expanded_target = new Rectangle(
-            rect.x - (objectRect.width/2),
-            rect.y - (objectRect.height/2),
-            rect.width + objectRect.width,
-            rect.height + objectRect.height
+            rect.x - (origin.width/2),
+            rect.y - (origin.height/2),
+            rect.width + origin.width,
+            rect.height + origin.height
         );
         // Setting line from center of the rectangle
-        int line_x = objectRect.x + ( objectRect.width / 2 );
-        int line_y = objectRect.y + ( objectRect.height / 2 );
+        int line_x = origin.x + ( origin.width / 2 );
+        int line_y = origin.y + ( origin.height / 2 );
         Line2D testLine = new Line2D.Double();
         testLine.setLine( line_x, line_y, line_x + velocityX, line_y + velocityY );
 
         return lineIntersection( testLine, expanded_target );
+    }
+
+    protected void checkFalling() {
+        if ( velocityX == 0 && velocityY == 0 ) return;
+        if ( falling ) return;
+
+        if ( velocityY != 0 ) {
+            falling = true;
+            return;
+        }
+
+        Rectangle bounds = getBounds();
+        bounds.height += 2;
+        Set<GameObject> neighbors = getQTree().query( bounds );
+        neighbors.removeIf( i -> i == this );
+        if ( neighbors.size() > 0 ) {
+            falling = false;
+        } else {
+            falling = true;
+        }
     }
 
     protected void handleCollision( int contactPoint, GameObject neighbor ) {

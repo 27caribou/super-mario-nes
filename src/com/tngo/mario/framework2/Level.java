@@ -77,13 +77,11 @@ public class Level {
             handler.addItem( item2 );
             qtree.insert( item2 );
         }
-
         for ( int xx = 0; xx < Game.WIDTH + 32; xx += 32 ) {
             GameObject item = new GameObject( xx, Game.HEIGHT - 32, 32, 32, "white", "brick" );
             handler.addItem( item );
             qtree.insert( item );
         }
-
         for ( int xx = 150; xx < Game.WIDTH - 150; xx += 32 ) {
             GameObject item = new GameObject( xx, Game.HEIGHT - 170, 32, 32, "white", "brick" );
             handler.addItem( item );
@@ -91,7 +89,7 @@ public class Level {
         }
 
         playerIndex = handler.getSize();
-        Player player = new Player( 100, Game.HEIGHT - 130, 20, 50, "green" );
+        Player player = new Player( 100, Game.HEIGHT - 200, 20, 50, "green" );
         handler.addItem( player );
         qtree.insert( player );
     }

@@ -84,37 +84,14 @@ public class QuadTree {
         return found;
     }
 
-    public Set<GameObject> query( GameObject target ) {
-        Set<GameObject> found = new HashSet<>();
-        Rectangle targetRange = target.getBounds();
-
-        if ( !boundary.intersects(targetRange) ) return found;
-        if ( !isDivided ) {
-            for ( int i = 0; i < objects.size(); i++ ) {
-                GameObject object = objects.get(i);
-                if ( object.getBounds().intersects(targetRange) && object != target ) {
-                    found.add( object );
-                }
-            }
-        } else {
-            found.addAll( children[0].query(target) );
-            found.addAll( children[1].query(target) );
-            found.addAll( children[2].query(target) );
-            found.addAll( children[3].query(target) );
-        }
-
-        return found;
-    }
-
-    public List<GameObject> sortedQuery( GameObject object ) {
-        Set<GameObject> query = query( object );
+    public List<GameObject> sortedQuery( Rectangle range ) {
+        Set<GameObject> query = query( range );
         List<GameObject> sorted = new ArrayList<>(query);
         if ( sorted.size() == 0 ) return sorted;
 
-        Rectangle r = object.getBounds();
         sorted.sort((o1, o2) -> {
-            Rectangle i1 = r.intersection(o1.getBounds());
-            Rectangle i2 = r.intersection(o2.getBounds());
+            Rectangle i1 = range.intersection(o1.getBounds());
+            Rectangle i2 = range.intersection(o2.getBounds());
             return (i2.width * i2.height) - (i1.width * i1.height);
         });
 

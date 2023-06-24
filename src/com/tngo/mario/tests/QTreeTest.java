@@ -15,7 +15,7 @@ public class QTreeTest extends LevelTest {
     int playerIndex;
 
     public QTreeTest( Handler handler ) {
-        for ( int i = 0; i < 10; i++ ) {
+        for ( int i = 0; i < 50; i++ ) {
             int randX = (int)( Math.random() * Game.WIDTH );
             int randY = (int)( Math.random() * Game.HEIGHT );
             GameObject object = new GameObject( randX, randY, 32, 32, "white", "brick" );
@@ -31,8 +31,10 @@ public class QTreeTest extends LevelTest {
     }
 
     public void tick( Handler handler, QuadTree tree ) {
-//        query = tree.query( ((Player) handler.getItem(playerIndex)).getBounds() );
-        query = tree.query( (GameObject) handler.getItem(playerIndex) );
+        Player player= (Player) handler.getItem(playerIndex);
+        query = tree.query( player.getBounds() );
+        query.removeIf( object -> object == player );
+//        query = tree.query( (GameObject) handler.getItem(playerIndex) );
     }
 
     public void render( Graphics g ) {
