@@ -1,4 +1,4 @@
-package com.tngo.mario.objects2;
+package com.tngo.mario.objects;
 
 import static com.tngo.mario.framework2.Level.getQTree;
 
@@ -15,8 +15,6 @@ public class GameObject extends CanvasItem {
     protected boolean falling = false;
 //    private final float MAX_SPEED = 10; Also to be used when falling
     protected final float gravity = 0.5f;
-
-//    Set<GameObject> neighbors;
 
     public GameObject(float x, float y, float width, float height, String color, String type) {
         super(x, y, width, height, color);
@@ -47,14 +45,6 @@ public class GameObject extends CanvasItem {
 
     public void render( Graphics g ) {
         super.render(g);
-
-//        if ( neighbors != null && neighbors.size() > 0 ) {
-//            g.setColor(Color.ORANGE);
-//            for ( GameObject object : neighbors ) {
-//                Rectangle rect = object.getBounds();
-//                g.drawRect( rect.x, rect.y, rect.width, rect.height );
-//            }
-//        }
     }
 
     protected void checkCollisions() {
@@ -77,6 +67,7 @@ public class GameObject extends CanvasItem {
                     if ( velocityY < 0 ) velocityY = 0;
                     break;
                 case 2:
+                    System.out.println("Hit right");
                     diff = x + width - neighborRect.x + 1;
                     x -= diff; // x -= velocityX;
                     velocityX = 0;

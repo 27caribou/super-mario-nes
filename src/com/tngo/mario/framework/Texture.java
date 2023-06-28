@@ -1,6 +1,6 @@
 package com.tngo.mario.framework;
 
-import com.tngo.mario.window.BufferedImageLoader;
+import com.tngo.mario.framework2.BufferedImageLoader;
 
 import java.awt.image.BufferedImage;
 

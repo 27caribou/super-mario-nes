@@ -1,4 +1,4 @@
-package com.tngo.mario.window;
+package com.tngo.mario.framework2;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

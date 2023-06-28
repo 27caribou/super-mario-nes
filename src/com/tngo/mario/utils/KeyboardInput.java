@@ -1,6 +1,6 @@
 package com.tngo.mario.utils;
 
-import com.tngo.mario.objects2.Player;
+import com.tngo.mario.objects.Player;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

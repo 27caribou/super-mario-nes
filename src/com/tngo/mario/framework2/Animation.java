@@ -7,7 +7,6 @@ public class Animation {
     Color blockColor;
 
     public Animation( String color ) {
-//        blockColor = color;
         if ( color == "white" ) {
             blockColor = Color.white;
         } else if ( color == "blue" ) {

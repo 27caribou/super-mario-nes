@@ -1,7 +1,6 @@
 package com.tngo.mario.framework2;
 
-import com.tngo.mario.Game;
-import com.tngo.mario.objects2.GameObject;
+import com.tngo.mario.objects.GameObject;
 
 import java.awt.*;
 import java.util.*;
@@ -20,6 +19,9 @@ public class QuadTree {
         this.capacity = n;
         objects = new ArrayList<>();
     }
+
+    public void setX( float x ) { boundary.x = (int) x; }
+    public void setY( float y ) { boundary.y = (int) y; }
 
     public boolean insert( GameObject object ) {
         if ( !boundary.intersects( object.getBounds() ) ) return false;

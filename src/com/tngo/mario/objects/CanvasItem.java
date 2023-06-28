@@ -1,4 +1,4 @@
-package com.tngo.mario.objects2;
+package com.tngo.mario.objects;
 
 import com.tngo.mario.framework2.Animation;
 

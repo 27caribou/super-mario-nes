@@ -1,6 +1,6 @@
 package com.tngo.mario.framework2;
 
-import com.tngo.mario.objects2.CanvasItem;
+import com.tngo.mario.objects.CanvasItem;
 
 import java.awt.*;
 import java.util.LinkedList;
