@@ -1,5 +1,6 @@
 package com.tngo.mario;
 
+import com.tngo.mario.framework.Texture;
 import com.tngo.mario.framework2.Level;
 import com.tngo.mario.utils.Window;
 
@@ -13,6 +14,7 @@ public class Game extends Canvas implements Runnable {
 
     public static int WIDTH, HEIGHT;
     Level currentLevel;
+    static Texture tex;
 
     public synchronized void start() {
         if ( running ) return;
@@ -25,6 +27,8 @@ public class Game extends Canvas implements Runnable {
     private void init() {
         WIDTH = getWidth();
         HEIGHT = getHeight();
+
+        tex = new Texture();
 
         currentLevel = new Level( this );
     }
@@ -81,6 +85,10 @@ public class Game extends Canvas implements Runnable {
         //////////////////////////////////////
         g.dispose();
         bs.show();
+    }
+
+    public static Texture getTex(){
+        return tex;
     }
 
     public static void main(String[] args) {

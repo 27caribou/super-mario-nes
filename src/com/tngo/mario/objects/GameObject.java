@@ -1,5 +1,8 @@
 package com.tngo.mario.objects;
 
+import com.tngo.mario.Game;
+import com.tngo.mario.framework.Texture;
+
 import static com.tngo.mario.framework2.Level.getQTree;
 
 import java.awt.*;
@@ -15,6 +18,8 @@ public class GameObject extends CanvasItem {
     protected boolean falling = false;
 //    private final float MAX_SPEED = 10; Also to be used when falling
     protected final float gravity = 0.5f;
+
+    Texture tex = Game.getTex();
 
     public GameObject(float x, float y, float width, float height, String color, String type) {
         super(x, y, width, height, color);
@@ -44,7 +49,13 @@ public class GameObject extends CanvasItem {
     }
 
     public void render( Graphics g ) {
-        super.render(g);
+        if ( type == "brick" ) {
+            g.drawImage( tex.block[0], (int)x, (int)y, null );
+        } else if ( type == "player" ) {
+            g.drawImage( tex.player[0], (int)x, (int)y, 48, 64, null );
+        } else {
+            super.render(g);
+        }
     }
 
     protected void checkCollisions() {
