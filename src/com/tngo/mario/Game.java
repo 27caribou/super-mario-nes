@@ -1,7 +1,7 @@
 package com.tngo.mario;
 
 import com.tngo.mario.framework.Texture;
-import com.tngo.mario.framework2.Level;
+import com.tngo.mario.framework.Level;
 import com.tngo.mario.utils.Window;
 
 import java.awt.*;

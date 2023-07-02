@@ -1,12 +1,10 @@
 package com.tngo.mario.objects;
 
-import com.tngo.mario.Game;
-import com.tngo.mario.framework.Texture;
-
-import static com.tngo.mario.framework2.Level.getQTree;
+import static com.tngo.mario.framework.Level.getQTree;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Set;
 
@@ -19,10 +17,13 @@ public class GameObject extends CanvasItem {
 //    private final float MAX_SPEED = 10; Also to be used when falling
     protected final float gravity = 0.5f;
 
-    Texture tex = Game.getTex();
-
-    public GameObject(float x, float y, float width, float height, String color, String type) {
+    public GameObject( float x, float y, float width, float height, String type, String color ) {
         super(x, y, width, height, color);
+        this.type = type;
+    }
+
+    public GameObject( float x, float y, float width, float height, String type, BufferedImage... imgs ) {
+        super(x, y, width, height, imgs);
         this.type = type;
     }
 
@@ -48,16 +49,6 @@ public class GameObject extends CanvasItem {
         if ( falling ) velocityY += gravity;
     }
 
-    public void render( Graphics g ) {
-        if ( type == "brick" ) {
-            g.drawImage( tex.block[0], (int)x, (int)y, null );
-        } else if ( type == "player" ) {
-            g.drawImage( tex.player[0], (int)x, (int)y, 48, 64, null );
-        } else {
-            super.render(g);
-        }
-    }
-
     protected void checkCollisions() {
         if ( velocityX == 0 && velocityY == 0 && !falling ) return;
         List<GameObject> sortedNeighbors = getQTree().sortedQuery( getBounds() );
@@ -78,7 +69,6 @@ public class GameObject extends CanvasItem {
                     if ( velocityY < 0 ) velocityY = 0;
                     break;
                 case 2:
-                    System.out.println("Hit right");
                     diff = x + width - neighborRect.x + 1;
                     x -= diff; // x -= velocityX;
                     velocityX = 0;

@@ -1,8 +1,8 @@
 package com.tngo.mario.objects;
 
-import com.tngo.mario.framework2.Animation;
-
+import com.tngo.mario.framework.Animation;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class CanvasItem {
 
@@ -18,10 +18,21 @@ public class CanvasItem {
         sprites = new Animation(color);
     }
 
+    public CanvasItem( float x, float y, float width, float height, BufferedImage... imgs ) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        sprites = new Animation(imgs);
+    }
+
     public float getX() { return x; }
     public float getY() { return y; }
     public void setX( float x ) { this.x = x; }
     public void setY( float y ) { this.y = y; }
+    public void setSprites( String color ) { sprites = new Animation(color); }
+    public void setSprites( BufferedImage... imgs ) { sprites = new Animation(imgs); }
+    public void setAnimationSpeed( int speed ) { sprites.setAnimationSpeed(speed); }
 
     public void tick() {
         sprites.runAnimation();

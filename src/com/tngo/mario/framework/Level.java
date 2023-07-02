@@ -1,11 +1,12 @@
-package com.tngo.mario.framework2;
+package com.tngo.mario.framework;
 
 import com.tngo.mario.Game;
-import com.tngo.mario.objects.CanvasItem;
 import com.tngo.mario.objects.GameObject;
 import com.tngo.mario.objects.Player;
+import com.tngo.mario.utils.BufferedImageLoader;
 import com.tngo.mario.utils.Camera;
 import com.tngo.mario.utils.KeyboardInput;
+import com.tngo.mario.utils.QuadTree;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,6 +18,8 @@ public class Level {
     protected static QuadTree qtree;
     protected BufferedImage stageImage;
     int playerIndex;
+
+    Texture tex = Game.getTex();
 
     public Level( Game game ) {
         handler = new Handler();
@@ -34,7 +37,6 @@ public class Level {
 
     public void tick() {
         qtree.flush();
-        System.out.println( handler.getItem(playerIndex).getX() + ", " + cam.getX());
         qtree.setX( handler.getItem(playerIndex).getX() - Game.WIDTH/2 );
         for ( int i = 0; i < handler.getSize(); i++ ) { qtree.insert( (GameObject) handler.getItem(i) ); }
 
@@ -83,10 +85,10 @@ public class Level {
                 int blue = ( pixel ) &0xff;
 
                 if ( red == 255 && green == 255 && blue == 255 ) {
-                    handler.addItem( new GameObject( i*32, j*32, 32, 32, "white", "brick" ) );
+                    handler.addItem( new GameObject( i * 32, j * 32, 32, 32, "brick", tex.block ) );
                 } else if ( red == 0 && green == 0 && blue == 255 ) {
                     playerIndex = handler.getSize();
-                    handler.addItem( new Player( i*32, j*32, 32, 50, "green" ) );
+                    handler.addItem( new Player( i*32, j*32, 32, 50, tex.player ) );
                 }
             }
         }

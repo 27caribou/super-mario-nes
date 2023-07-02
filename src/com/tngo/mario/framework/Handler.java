@@ -1,4 +1,4 @@
-package com.tngo.mario.framework2;
+package com.tngo.mario.framework;
 
 import com.tngo.mario.objects.CanvasItem;
 
