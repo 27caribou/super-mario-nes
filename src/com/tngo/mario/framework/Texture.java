@@ -37,6 +37,9 @@ public class Texture {
         player[5] = bs.grabImage( 6,1,32,32 ); // idle
         player[6] = bs.grabImage( 7,1,32,32 ); // idle
         player[7] = bs.grabImage( 8,1,32,32 ); // idle
+
+        // make coin image draw from the center
+        // Translate based on the largest image?
     }
 
 }
