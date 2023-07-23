@@ -1,6 +1,7 @@
 package com.tngo.mario.utils;
 
 import java.awt.image.BufferedImage;
+import java.awt.Color;
 
 public class SpriteSheet {
 
@@ -10,9 +11,14 @@ public class SpriteSheet {
     }
 
     public BufferedImage grabImage( int col, int row, int width, int height ) {
-        BufferedImage img = image.getSubimage( ( col * width ) - width, ( row * height ) - height, width, height );
+        // +1 and -2 because the sprites are surrounded by a 1px black outline
+        BufferedImage img = image.getSubimage(
+            ( col * width ) - width + 1,
+            ( row * height ) - height + 1,
+            width - 2,
+            height - 2
+        );
         return huecoMundo(img);
-//        return img;
     }
 
     /**
@@ -22,48 +28,44 @@ public class SpriteSheet {
     private BufferedImage huecoMundo( BufferedImage img ) {
         int width = img.getWidth();
         int height = img.getHeight();
+        int imgWidth = 0, imgHeight = 0, imgX = width, imgY = height;
 
-        int imgWidth = 0, n = 0, tempWidth = 0, imgHeight = 0, imgX = img.getWidth(), imgY = img.getHeight();
-        int pixel, red, green, blue;
-        boolean lineTouched = false;
-
+        int noColorRowCounter = 0;
+        boolean startedParsing = false;
         for ( int y = 0; y < height; y++ ) {
+            boolean rowHasColor = false;
+            int noColorColumnCounter = 0;
+            int tempWidth = 0;
+
             for ( int x = 0; x < width; x++ ) {
+                int pixel = img.getRGB(x, y);
 
-                pixel = img.getRGB(x, y);
+                if ( isTransparent(pixel) && !rowHasColor ) continue; // Check transparency
+                rowHasColor = true;
 
-                red = ( pixel >> 16 ) & 0xff;
-                green = ( pixel >> 8 ) & 0xff;
-                blue = ( pixel ) & 0xff;
+                // I did this here because I want to get when we actually start counting for picture
+                if ( x < imgX ) imgX = x;
+                if ( y < imgY ) imgY = y;
 
-                if ( (( red == 255 ) && ( green == 255 ) && ( blue == 255 )) && !lineTouched ) continue;
-                else {
-                    // I did this here because I want to get when we actually start counting for picture
-                    if ( x < imgX ) imgX = x;
-                    if ( y < imgY ) imgY = y;
-
-                    lineTouched = true;
-                    // I did this here so that if we count and go above 10 white pixels, then we reached the max right already
-                    if ((red == 255) && (green == 255) && (blue == 255))
-                        n++;
-                    else {
-                        n = 0;
-                        tempWidth++;
-                    }
-
-                    if (n >= 10){
-                        //w2 = w2 - 10;
-                        break;
-                    }
+                if ( isTransparent(pixel) ) {
+                    noColorColumnCounter++;
+                } else {
+                    tempWidth += noColorColumnCounter + 1; // Add back pixels that were not counted in tempWidth
+                    noColorColumnCounter = 0;
                 }
             }
-            // This is done here so that you can update w if you find a bigger width
-            if (tempWidth > imgWidth) imgWidth = tempWidth;
-            if (lineTouched) {
-                // Adding a height pixel if you could find even one colored pixel on that row
-                imgHeight++;
-                lineTouched = false;
-                tempWidth = 0;
+
+            if ( tempWidth > imgWidth ) {
+                imgWidth = tempWidth;
+                startedParsing = true; // Useful to know when to start counting the height
+            }
+            if ( startedParsing ) {
+                if ( tempWidth == 0 ) {
+                    noColorRowCounter++;
+                } else {
+                    imgHeight += noColorRowCounter + 1;
+                    noColorRowCounter = 0;
+                }
             }
         }
 //        System.out.println("width: " + imgWidth + "   height:  " + imgHeight + "   x:    " + imgX + "   y:    " + imgY);
@@ -71,4 +73,6 @@ public class SpriteSheet {
         /* At this stage we have all we need. Just grab a more accurate image*/
         return img.getSubimage( imgX, imgY, imgWidth, imgHeight );
     }
+
+    private boolean isTransparent( int pixel ) { return ( pixel >> 24 ) == 0x00; }
 }
