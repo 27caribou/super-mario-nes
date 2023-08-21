@@ -30,7 +30,7 @@ public class Game extends Canvas implements Runnable {
 
         tex = new Texture();
 
-        currentLevel = new Level( this );
+        currentLevel = new Level( this, "level1.png", "skyblue" );
     }
 
     public void run() {
@@ -91,7 +91,8 @@ public class Game extends Canvas implements Runnable {
         return tex;
     }
 
+    // Original game block size = 16, scaling it to 32; 16w by 15h
     public static void main(String[] args) {
-        new Window(800, 600, "Super Mario Game Prototype", new Game());
+        new Window(32*16, 32*15, "Super Mario Game Prototype", new Game());
     }
 }

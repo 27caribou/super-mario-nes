@@ -4,35 +4,388 @@ import com.tngo.mario.utils.BufferedImageLoader;
 import com.tngo.mario.utils.SpriteSheet;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Texture {
 
-    SpriteSheet bs;
-    public BufferedImage[] block = new BufferedImage[1];
-    public BufferedImage[] player = new BufferedImage[4];
+    SpriteSheet level_items_sprites, block_sprites, object_sprites, player_sprites, enemy_sprites;
+    Map<String, List<BufferedImage>> texMap;
+    int size = 32; // Standard size for block in sprite sheets
 
     public Texture(){
-
+        texMap = new HashMap<>();
         BufferedImageLoader loader = new BufferedImageLoader();
-        BufferedImage block_sheet = null;
+        
+        BufferedImage image = null;
         try {
-            block_sheet = loader.loadImage("/items.png");
+            image = loader.loadImage("/level-items.png");
+            level_items_sprites = new SpriteSheet(image);
+
+            image = loader.loadImage("/blocks.png");
+            block_sprites = new SpriteSheet(image);
+
+            image = loader.loadImage("/objects.png");
+            object_sprites = new SpriteSheet(image);
+
+            image = loader.loadImage("/player.png");
+            player_sprites = new SpriteSheet(image);
+
+            image = loader.loadImage("/enemies.png");
+            enemy_sprites = new SpriteSheet(image);
+            
         } catch (Exception e){
             e.printStackTrace();
         }
 
-        bs = new SpriteSheet(block_sheet);
-
-        getTextures();
+        getLevelItemTex();
+        getBlockTex();
+        getObjectTex();
+        getPlayerTex();
     }
 
-    private void getTextures() {
-        block[0] = bs.grabImage( 1,1,32,32 ); // brick
+    private void getLevelItemTex() {
 
-        player[0] = bs.grabImage( 1,4,32,32 ); // idle
-        player[1] = bs.grabImage( 2,4,32,32 ); // idle
-        player[2] = bs.grabImage( 3,4,32,32 ); // idle
-        player[3] = bs.grabImage( 4,4,32,32 ); // idle
+        List<BufferedImage> smallHill = new ArrayList<>();
+        smallHill.add( level_items_sprites.grabImage( 1, 1, size * 2, size ) );
+        texMap.put( "hill-small", smallHill );
+
+        List<BufferedImage> largeHill = new ArrayList<>();
+        largeHill.add( level_items_sprites.grabImage( 3, 1, size * 3, size * 2 ) );
+        texMap.put( "hill-large", largeHill );
+
+        List<BufferedImage> mediumCloud = new ArrayList<>();
+        mediumCloud.add( level_items_sprites.grabImage( 6, 1, size * 2, size ) );
+        texMap.put( "cloud-medium", mediumCloud );
+
+        List<BufferedImage> smallBush = new ArrayList<>();
+        smallBush.add( level_items_sprites.grabImage( 1, 2, size * 2, size ) );
+        texMap.put( "bush-small", smallBush );
+
+        List<BufferedImage> pipeUp = new ArrayList<>();
+        pipeUp.add( level_items_sprites.grabImage( 6, 2, size * 2, size * 2 ) );
+        texMap.put( "pipe-up", pipeUp );
+
+        List<BufferedImage> pipePiece = new ArrayList<>();
+        pipePiece.add( level_items_sprites.grabImage( 8, 2, size, size ) );
+        texMap.put( "pipe-piece", pipePiece );
+
+        List<BufferedImage> mediumBush = new ArrayList<>();
+        mediumBush.add( level_items_sprites.grabImage( 1, 3, size * 2, size ) );
+        texMap.put( "bush-medium", mediumBush );
+
+        List<BufferedImage> largeCloud = new ArrayList<>();
+        largeCloud.add( level_items_sprites.grabImage( 3, 3, size * 3, size ) );
+        texMap.put( "cloud-large", largeCloud );
+
+        List<BufferedImage> finishPole = new ArrayList<>();
+        finishPole.add( level_items_sprites.grabImage( 8, 3, size, size * 6 ) );
+        texMap.put( "finishpole", finishPole );
+
+        List<BufferedImage> largeBush = new ArrayList<>();
+        largeBush.add( level_items_sprites.grabImage( 1, 4, size * 3, size ) );
+        texMap.put( "bush-large", largeBush );
+
+        List<BufferedImage> pipeConnector = new ArrayList<>();
+        pipeConnector.add( level_items_sprites.grabImage( 4, 4, size * 2, size * 2 ) );
+        texMap.put( "pipe-connector", pipeConnector );
+
+        List<BufferedImage> pipeLeft = new ArrayList<>();
+        pipeLeft.add( level_items_sprites.grabImage( 6, 4, size * 2, size * 2 ) );
+        texMap.put( "pipe-left", pipeLeft );
+
+        List<BufferedImage> smallCloud = new ArrayList<>();
+        smallCloud.add( level_items_sprites.grabImage( 1, 5, size * 2, size ) );
+        texMap.put( "cloud-small", smallCloud );
+
+        List<BufferedImage> castleNormal = new ArrayList<>();
+        castleNormal.add( level_items_sprites.grabImage( 1, 6, size * 3, size * 3 ) );
+        texMap.put( "castle-normal", castleNormal );
+
+        List<BufferedImage> poleFlag = new ArrayList<>();
+        poleFlag.add( level_items_sprites.grabImage( 4, 6, size, size ) );
+        texMap.put( "flag-pole", poleFlag );
+
+        List<BufferedImage> castleFlag = new ArrayList<>();
+        castleFlag.add( level_items_sprites.grabImage( 5, 6, size, size ) );
+        texMap.put( "flag-castle", castleFlag );
+
+        // To be removed later...
+        List<BufferedImage> pipeUpMedium = new ArrayList<>();
+        pipeUpMedium.add( level_items_sprites.grabImage( 4, 7, size * 2, size * 2 ) );
+        texMap.put( "pipe-up-medium", pipeUpMedium );
+
+        List<BufferedImage> pipeUpLarge = new ArrayList<>();
+        pipeUpLarge.add( level_items_sprites.grabImage( 6, 6, size * 2, size * 2 ) );
+        texMap.put( "pipe-up-large", pipeUpLarge );
     }
 
+    private void getBlockTex() {
+
+        List<BufferedImage> blockNormal = new ArrayList<>();
+        blockNormal.add( block_sprites.grabImage( 1, 1, size, size ) );
+        texMap.put( "block-normal", blockNormal );
+
+        List<BufferedImage> mysteryBlock = new ArrayList<>();
+        mysteryBlock.add( block_sprites.grabImage( 2, 1, size, size ) );
+        mysteryBlock.add( block_sprites.grabImage( 3, 1, size, size ) );
+        mysteryBlock.add( block_sprites.grabImage( 4, 1, size, size ) );
+        texMap.put( "mysteryblock-normal", mysteryBlock );
+
+        List<BufferedImage> mysteryBlockEmpty = new ArrayList<>();
+        mysteryBlockEmpty.add( block_sprites.grabImage( 5, 1, size, size ) );
+        texMap.put( "mysteryblock-empty", mysteryBlockEmpty );
+
+        List<BufferedImage> block2Normal = new ArrayList<>();
+        block2Normal.add( block_sprites.grabImage( 6, 1, size, size ) );
+        texMap.put( "block2-normal", block2Normal );
+
+        List<BufferedImage> mysteryBlockEmptyNight = new ArrayList<>();
+        mysteryBlockEmptyNight.add( block_sprites.grabImage( 7, 1, size, size ) );
+        texMap.put( "mysteryblock-empty-night", mysteryBlockEmptyNight );
+
+        List<BufferedImage> blockNight = new ArrayList<>();
+        blockNight.add( block_sprites.grabImage( 8, 1, size, size ) );
+        texMap.put( "block-night", blockNight );
+
+        List<BufferedImage> brick = new ArrayList<>();
+        brick.add( block_sprites.grabImage( 1, 2, size, size ) );
+        texMap.put( "brick-normal", brick );
+
+        List<BufferedImage> brickPiece = new ArrayList<>();
+        brickPiece.add( block_sprites.grabImage( 3, 2, size, size ) );
+        brickPiece.add( block_sprites.grabImage( 4, 2, size, size ) );
+        brickPiece.add( block_sprites.grabImage( 5, 2, size, size ) );
+        brickPiece.add( block_sprites.grabImage( 6, 2, size, size ) );
+        texMap.put( "brickpiece-normal", brickPiece );
+
+        List<BufferedImage> block2Night = new ArrayList<>();
+        block2Night.add( block_sprites.grabImage( 8, 2, size, size ) );
+        texMap.put( "block2-night", block2Night );
+
+        List<BufferedImage> brickNight = new ArrayList<>();
+        brickNight.add( block_sprites.grabImage( 1, 3, size, size ) );
+        texMap.put( "brick-night", brickNight );
+
+        List<BufferedImage> brickEmptyNight = new ArrayList<>();
+        brickEmptyNight.add( block_sprites.grabImage( 2, 3, size, size ) );
+        texMap.put( "brick-empty-night", brickEmptyNight );
+
+        List<BufferedImage> brickPieceNight = new ArrayList<>();
+        brickPieceNight.add( block_sprites.grabImage( 3, 3, size, size ) );
+        brickPieceNight.add( block_sprites.grabImage( 4, 3, size, size ) );
+        brickPieceNight.add( block_sprites.grabImage( 5, 3, size, size ) );
+        brickPieceNight.add( block_sprites.grabImage( 6, 3, size, size ) );
+        texMap.put( "brickpiece-night", brickPieceNight );
+    }
+
+    private void getObjectTex() {
+
+        List<BufferedImage> growthMushroom = new ArrayList<>();
+        growthMushroom.add( object_sprites.grabImage( 1, 1, size, size ) );
+        texMap.put( "mushroom-growth", growthMushroom );
+
+        List<BufferedImage> fireFlowerNormal = new ArrayList<>();
+        fireFlowerNormal.add( object_sprites.grabImage( 2, 1, size, size ) );
+        fireFlowerNormal.add( object_sprites.grabImage( 3, 1, size, size ) );
+        fireFlowerNormal.add( object_sprites.grabImage( 4, 1, size, size ) );
+        fireFlowerNormal.add( object_sprites.grabImage( 5, 1, size, size ) );
+        texMap.put( "fireflower-normal", fireFlowerNormal );
+
+        List<BufferedImage> coinNight = new ArrayList<>();
+        coinNight.add( object_sprites.grabImage( 6, 1, size, size ) );
+        coinNight.add( object_sprites.grabImage( 7, 1, size, size ) );
+        coinNight.add( object_sprites.grabImage( 8, 1, size, size ) );
+        texMap.put( "coin-night", coinNight );
+
+        List<BufferedImage> lifeMushroom = new ArrayList<>();
+        lifeMushroom.add( object_sprites.grabImage( 1, 2, size, size ) );
+        texMap.put( "mushroom-life", lifeMushroom );
+
+        List<BufferedImage> starNormal = new ArrayList<>();
+        starNormal.add( object_sprites.grabImage( 2, 2, size, size ) );
+        starNormal.add( object_sprites.grabImage( 3, 2, size, size ) );
+        starNormal.add( object_sprites.grabImage( 4, 2, size, size ) );
+        starNormal.add( object_sprites.grabImage( 5, 2, size, size ) );
+        texMap.put( "star-normal", starNormal );
+
+        List<BufferedImage> coinNormal = new ArrayList<>();
+        coinNormal.add( object_sprites.grabImage( 6, 2, size, size ) );
+        coinNormal.add( object_sprites.grabImage( 7, 2, size, size ) );
+        coinNormal.add( object_sprites.grabImage( 8, 2, size, size ) );
+        texMap.put( "coin-normal", coinNormal );
+
+        List<BufferedImage> jumpingCoin = new ArrayList<>();
+        jumpingCoin.add( object_sprites.grabImage( 1, 3, size, size ) );
+        jumpingCoin.add( object_sprites.grabImage( 2, 3, size, size ) );
+        jumpingCoin.add( object_sprites.grabImage( 3, 3, size, size ) );
+        jumpingCoin.add( object_sprites.grabImage( 4, 3, size, size ) );
+        texMap.put( "jumpingcoin", jumpingCoin );
+
+        List<BufferedImage> fireball = new ArrayList<>();
+        fireball.add( object_sprites.grabImage( 1, 4, size, size ) );
+        fireball.add( object_sprites.grabImage( 2, 4, size, size ) );
+        fireball.add( object_sprites.grabImage( 3, 4, size, size ) );
+        fireball.add( object_sprites.grabImage( 4, 4, size, size ) );
+        texMap.put( "fireball", fireball );
+
+        List<BufferedImage> explosion = new ArrayList<>();
+        explosion.add( object_sprites.grabImage( 5, 4, size, size ) );
+        explosion.add( object_sprites.grabImage( 6, 4, size, size ) );
+        explosion.add( object_sprites.grabImage( 7, 4, size, size ) );
+        texMap.put( "explosion", explosion );
+
+        List<BufferedImage> hatchetNormal = new ArrayList<>();
+        hatchetNormal.add( object_sprites.grabImage( 1, 5, size, size ) );
+        hatchetNormal.add( object_sprites.grabImage( 2, 5, size, size ) );
+        hatchetNormal.add( object_sprites.grabImage( 3, 5, size, size ) );
+        hatchetNormal.add( object_sprites.grabImage( 4, 5, size, size ) );
+        texMap.put( "hatchet-normal", hatchetNormal );
+
+        List<BufferedImage> bowserFire = new ArrayList<>();
+        bowserFire.add( object_sprites.grabImage( 5, 5, size, size ) );
+        bowserFire.add( object_sprites.grabImage( 6, 5, size, size ) );
+        texMap.put( "bowserfire", bowserFire );
+
+        List<BufferedImage> hatchetNight = new ArrayList<>();
+        hatchetNight.add( object_sprites.grabImage( 1, 6, size, size ) );
+        hatchetNight.add( object_sprites.grabImage( 2, 6, size, size ) );
+        hatchetNight.add( object_sprites.grabImage( 3, 6, size, size ) );
+        hatchetNight.add( object_sprites.grabImage( 4, 6, size, size ) );
+        texMap.put( "hatchet-night", hatchetNight );
+    }
+
+    private void getPlayerTex() {
+
+        List<BufferedImage> marioDead = new ArrayList<>();
+        marioDead.add( player_sprites.grabImage( 1, 3, size, size ) );
+        texMap.put( "mario-dead", marioDead );
+
+        getPlayerGroupTex( 1, 1, "normal" );
+        getPlayerGroupTex( 9, 1, "fire" );
+        getPlayerGroupTex( 1, 9, "invincible1" );
+        getPlayerGroupTex( 9, 9, "invincible2" );
+        getPlayerGroupTex( 1, 17, "invincible3" );
+
+    }
+
+    private void getPlayerGroupTex( int colStart, int rowStart, String id ) {
+
+        List<BufferedImage> smallMarioIdleRight = new ArrayList<>();
+        smallMarioIdleRight.add( player_sprites.grabImage( colStart, rowStart, size, size ) );
+        texMap.put( "mario-small-idle-right-" + id, smallMarioIdleRight );
+
+        List<BufferedImage> smallMarioRunningRight = new ArrayList<>();
+        smallMarioRunningRight.add( player_sprites.grabImage( colStart + 1, rowStart, size, size ) );
+        smallMarioRunningRight.add( player_sprites.grabImage( colStart + 2, rowStart, size, size ) );
+        smallMarioRunningRight.add( player_sprites.grabImage( colStart + 3, rowStart, size, size ) );
+        texMap.put( "mario-small-running-right-" + id, smallMarioRunningRight );
+
+        List<BufferedImage> smallMarioJumpingRight = new ArrayList<>();
+        smallMarioJumpingRight.add( player_sprites.grabImage( colStart + 4, rowStart, size, size ) );
+        texMap.put( "mario-small-jumping-right-" + id, smallMarioJumpingRight );
+
+        List<BufferedImage> smallMarioHangingRight = new ArrayList<>();
+        smallMarioHangingRight.add( player_sprites.grabImage( colStart + 5, rowStart, size, size ) );
+        texMap.put( "mario-small-hanging-right-" + id, smallMarioHangingRight );
+
+        List<BufferedImage> smallMarioFiringRight = new ArrayList<>();
+        smallMarioFiringRight.add( player_sprites.grabImage( colStart + 3, rowStart, size, size ) );
+        texMap.put( "mario-small-firing-right-" + id, smallMarioFiringRight );
+
+        List<BufferedImage> smallMarioIdleLeft = new ArrayList<>();
+        smallMarioIdleLeft.add( player_sprites.grabImage( colStart, rowStart + 1, size, size ) );
+        texMap.put( "mario-small-idle-left-" + id, smallMarioIdleLeft );
+
+        List<BufferedImage> smallMarioRunningLeft = new ArrayList<>();
+        smallMarioRunningLeft.add( player_sprites.grabImage( colStart + 1, rowStart + 1, size, size ) );
+        smallMarioRunningLeft.add( player_sprites.grabImage( colStart + 2, rowStart + 1, size, size ) );
+        smallMarioRunningLeft.add( player_sprites.grabImage( colStart + 3, rowStart + 1, size, size ) );
+        texMap.put( "mario-small-running-left-" + id, smallMarioRunningLeft );
+
+        List<BufferedImage> smallMarioJumpingLeft = new ArrayList<>();
+        smallMarioJumpingLeft.add( player_sprites.grabImage( colStart + 4, rowStart + 1, size, size ) );
+        texMap.put( "mario-small-jumping-left-" + id, smallMarioJumpingLeft );
+
+        List<BufferedImage> smallMarioHangingLeft = new ArrayList<>();
+        smallMarioHangingLeft.add( player_sprites.grabImage( colStart + 5, rowStart + 1, size, size ) );
+        texMap.put( "mario-small-hanging-left-" + id, smallMarioHangingLeft );
+
+        List<BufferedImage> smallMarioFiringLeft = new ArrayList<>();
+        smallMarioFiringLeft.add( player_sprites.grabImage( colStart + 3, rowStart + 1, size, size ) );
+        texMap.put( "mario-small-firing-left-" + id, smallMarioFiringLeft );
+
+        List<BufferedImage> largeMarioIdleRight = new ArrayList<>();
+        largeMarioIdleRight.add( player_sprites.grabImage( colStart, rowStart + 3, size, size * 2 ) );
+        texMap.put( "mario-large-idle-right-" + id, largeMarioIdleRight );
+
+        List<BufferedImage> largeMarioRunningRight = new ArrayList<>();
+        largeMarioRunningRight.add( player_sprites.grabImage( colStart + 1, rowStart + 3, size, size * 2 ) );
+        largeMarioRunningRight.add( player_sprites.grabImage( colStart + 2, rowStart + 3, size, size * 2 ) );
+        largeMarioRunningRight.add( player_sprites.grabImage( colStart + 3, rowStart + 3, size, size * 2 ) );
+        texMap.put( "mario-large-running-right-" + id, largeMarioRunningRight );
+
+        List<BufferedImage> largeMarioJumpingRight = new ArrayList<>();
+        largeMarioJumpingRight.add( player_sprites.grabImage( colStart + 4, rowStart + 3, size, size * 2 ) );
+        texMap.put( "mario-large-jumping-right-" + id, largeMarioJumpingRight );
+
+        List<BufferedImage> largeMarioHangingRight = new ArrayList<>();
+        largeMarioHangingRight.add( player_sprites.grabImage( colStart + 5, rowStart + 3, size, size * 2 ) );
+        texMap.put( "mario-large-hanging-right-" + id, largeMarioHangingRight );
+
+        List<BufferedImage> largeMarioFiringRight = new ArrayList<>();
+        largeMarioFiringRight.add( player_sprites.grabImage( colStart + 6, rowStart + 3, size, size * 2 ) );
+        texMap.put( "mario-large-firing-right-" + id, largeMarioFiringRight );
+
+        List<BufferedImage> largeMarioIdleLeft = new ArrayList<>();
+        largeMarioIdleLeft.add( player_sprites.grabImage( colStart, rowStart + 4, size, size * 2 ) );
+        texMap.put( "mario-large-idle-left-" + id, largeMarioIdleLeft );
+
+        List<BufferedImage> largeMarioRunningLeft = new ArrayList<>();
+        largeMarioRunningLeft.add( player_sprites.grabImage( colStart + 2, rowStart + 4, size, size * 2 ) );
+        largeMarioRunningLeft.add( player_sprites.grabImage( colStart + 3, rowStart + 4, size, size * 2 ) );
+        largeMarioRunningLeft.add( player_sprites.grabImage( colStart + 4, rowStart + 4, size, size * 2 ) );
+        texMap.put( "mario-large-running-left-" + id, largeMarioRunningLeft );
+
+        List<BufferedImage> largeMarioJumpingLeft = new ArrayList<>();
+        largeMarioJumpingLeft.add( player_sprites.grabImage( colStart + 1, rowStart + 4, size, size * 2 ) );
+        texMap.put( "mario-large-jumping-left-" + id, largeMarioJumpingLeft );
+
+        List<BufferedImage> largeMarioHangingLeft = new ArrayList<>();
+        largeMarioHangingLeft.add( player_sprites.grabImage( colStart + 5, rowStart + 4, size, size * 2 ) );
+        texMap.put( "mario-large-hanging-left-" + id, largeMarioHangingLeft );
+
+        List<BufferedImage> largeMarioFiringLeft = new ArrayList<>();
+        largeMarioFiringLeft.add( player_sprites.grabImage( colStart + 6, rowStart + 4, size, size * 2 ) );
+        texMap.put( "mario-large-firing-left-" + id, largeMarioFiringLeft );
+
+        List<BufferedImage> bigTransformationRight = new ArrayList<>();
+        bigTransformationRight.add( player_sprites.grabImage( colStart, rowStart, size, size ) );
+        bigTransformationRight.add( player_sprites.grabImage( colStart + 1, rowStart + 2, size, size ) );
+        bigTransformationRight.add( player_sprites.grabImage( colStart, rowStart, size, size ) );
+        bigTransformationRight.add( player_sprites.grabImage( colStart + 1, rowStart + 2, size, size ) );
+        bigTransformationRight.add( player_sprites.grabImage( colStart, rowStart + 3, size, size * 2 ) );
+        bigTransformationRight.add( player_sprites.grabImage( colStart, rowStart, size, size ) );
+        bigTransformationRight.add( player_sprites.grabImage( colStart + 1, rowStart + 2, size, size ) );
+        bigTransformationRight.add( player_sprites.grabImage( colStart, rowStart + 3, size, size * 2 ) );
+        texMap.put( "mario-big-transformation-right-" + id, bigTransformationRight );
+
+        List<BufferedImage> bigTransformationLeft = new ArrayList<>();
+        bigTransformationLeft.add( player_sprites.grabImage( colStart, rowStart + 1, size, size ) );
+        bigTransformationLeft.add( player_sprites.grabImage( colStart + 2, rowStart + 2, size, size ) );
+        bigTransformationLeft.add( player_sprites.grabImage( colStart, rowStart + 1, size, size ) );
+        bigTransformationLeft.add( player_sprites.grabImage( colStart + 2, rowStart + 2, size, size ) );
+        bigTransformationLeft.add( player_sprites.grabImage( colStart, rowStart + 4, size, size * 2 ) );
+        bigTransformationLeft.add( player_sprites.grabImage( colStart, rowStart + 1, size, size ) );
+        bigTransformationLeft.add( player_sprites.grabImage( colStart + 2, rowStart + 2, size, size ) );
+        bigTransformationLeft.add( player_sprites.grabImage( colStart, rowStart + 4, size, size * 2 ) );
+        texMap.put( "mario-big-transformation-left-" + id, bigTransformationLeft );
+    }
+
+    public BufferedImage[] get( String key ) {
+        List<BufferedImage> result = texMap.get(key);
+        return result.toArray( new BufferedImage[0] );
+    }
 }

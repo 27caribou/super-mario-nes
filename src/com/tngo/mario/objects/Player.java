@@ -12,4 +12,13 @@ public class Player extends GameObject {
         super( x, y, width, height, "player", imgs );
     }
 
+    public void tick() {
+        super.tick();
+
+        if ( x < 0 ) {
+            x = 0;
+            setVelocityX(0);
+        }
+    }
+
 }

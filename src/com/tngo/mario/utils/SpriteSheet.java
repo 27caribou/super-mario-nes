@@ -1,11 +1,12 @@
 package com.tngo.mario.utils;
 
 import java.awt.image.BufferedImage;
-import java.awt.Color;
 
 public class SpriteSheet {
 
     private BufferedImage image;
+    int size = 32; // Standard size for block in sprite sheets
+
     public SpriteSheet( BufferedImage img ) {
         image = img;
     }
@@ -13,8 +14,8 @@ public class SpriteSheet {
     public BufferedImage grabImage( int col, int row, int width, int height ) {
         // +1 and -2 because the sprites are surrounded by a 1px black outline
         BufferedImage img = image.getSubimage(
-            ( col * width ) - width + 1,
-            ( row * height ) - height + 1,
+            ( col * size ) - size + 1,
+            ( row * size ) - size + 1,
             width - 2,
             height - 2
         );

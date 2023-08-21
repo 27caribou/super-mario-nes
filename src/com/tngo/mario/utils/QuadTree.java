@@ -20,9 +20,6 @@ public class QuadTree {
         objects = new ArrayList<>();
     }
 
-    public void setX( float x ) { boundary.x = (int) x; }
-    public void setY( float y ) { boundary.y = (int) y; }
-
     public boolean insert( GameObject object ) {
         if ( !boundary.intersects( object.getBounds() ) ) return false;
 
@@ -101,7 +98,7 @@ public class QuadTree {
     }
 
     public void display( Graphics g ) {
-        g.setColor( Color.pink );
+        g.setColor( Color.RED );
         g.drawRect( boundary.x, boundary.y, boundary.width, boundary.height );
 
         if ( isDivided ) {
@@ -112,7 +109,7 @@ public class QuadTree {
     }
 
     public void flush() {
-        objects = new ArrayList<>();
+        objects.clear();
         isDivided = false;
         children = null;
     }
