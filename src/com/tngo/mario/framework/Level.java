@@ -24,7 +24,6 @@ public class Level {
     public Level( Game game, String model, String backgroundColor ) {
         gameObjectHandler = new Handler();
         backgroundItemsHandler = new Handler();
-        cam = new Camera(0, 0);
 
         if ( backgroundColor == "skyblue" ) {
             this.backgroundColor = new Color( 92, 148, 252 );
@@ -46,7 +45,7 @@ public class Level {
 
         backgroundItemsHandler.tick();
         gameObjectHandler.tick();
-        cam.tick( (Player) gameObjectHandler.getItem(playerIndex) );
+        cam.tick();
     }
 
     public void render( Graphics g ) {
@@ -57,7 +56,7 @@ public class Level {
         g.fillRect(0,0, Game.WIDTH, Game.HEIGHT);
 
         // Start of cam
-        g2d.translate( Math.min(0, cam.getX()), cam.getY() );
+        g2d.translate( cam.getX(), cam.getY() );
 
         // Anything within the camera is going to be affected by the translation
         backgroundItemsHandler.render(g);
@@ -87,7 +86,12 @@ public class Level {
 
                 if ( red == 200 && green == 76 && blue == 12 ) {
                     gameObjectHandler.addItem( factory.create_object( x, y, "block" ) );
+                } else if ( red == 204 && green == 64 && blue == 20 ) {
+                    gameObjectHandler.addItem( factory.create_object( x, y, "block2" ) );
                 } else if ( red == 252 && green == 152 && blue == 56 ) {
+                    gameObjectHandler.addItem( factory.create_object( x, y, "mystery-block" ) );
+                } else if ( red == 249 && green == 184 && blue == 79 ) {
+                    // This one should be hidden
                     gameObjectHandler.addItem( factory.create_object( x, y, "mystery-block" ) );
                 } else if ( red == 150 && green == 76 && blue == 12 ) {
                     gameObjectHandler.addItem( factory.create_object( x, y, "brick" ) );
@@ -95,24 +99,32 @@ public class Level {
                     gameObjectHandler.addItem( factory.create_object( x, y, "pipe-head-v" ) );
                 } else if ( red == 0 && green == 183 && blue == 0 ) {
                     gameObjectHandler.addItem( factory.create_object( x, y, "pipe-piece" ) );
-                } else if ( red == 24 && green == 134 && blue == 24 ) {
-                    backgroundItemsHandler.addItem( factory.create_object( x, y, "hill-large" ) );
                 } else if ( red == 25 && green == 140 && blue == 25 ) {
                     backgroundItemsHandler.addItem( factory.create_object( x, y, "hill-small" ) );
+                } else if ( red == 24 && green == 134 && blue == 24 ) {
+                    backgroundItemsHandler.addItem( factory.create_object( x, y, "hill-large" ) );
                 } else if ( red == 252 && green == 252 && blue == 252 ) {
                     backgroundItemsHandler.addItem( factory.create_object( x, y, "cloud-small" ) );
+                } else if ( red == 247 && green == 247 && blue == 247 ) {
+                    backgroundItemsHandler.addItem( factory.create_object( x, y, "cloud-medium" ) );
                 } else if ( red == 234 && green == 234 && blue == 234 ) {
                     backgroundItemsHandler.addItem( factory.create_object( x, y, "cloud-large" ) );
-                } else if ( red == 128 && green == 208 && blue == 16 ) {
-                    backgroundItemsHandler.addItem( factory.create_object( x, y, "bush-large" ) );
                 } else if ( red == 125 && green == 198 && blue == 15 ) {
                     backgroundItemsHandler.addItem( factory.create_object( x, y, "bush-small" ) );
+                } else if ( red == 127 && green == 201 && blue == 16 ) {
+                    backgroundItemsHandler.addItem( factory.create_object( x, y, "bush-medium" ) );
+                } else if ( red == 128 && green == 208 && blue == 16 ) {
+                    backgroundItemsHandler.addItem( factory.create_object( x, y, "bush-large" ) );
+                } else if ( red == 96 && green == 96 && blue == 96 ) {
+                    backgroundItemsHandler.addItem( factory.create_object( x, y, "castle-normal" ) );
                 } else if ( red == 0 && green == 0 && blue == 255 ) {
                     playerIndex = gameObjectHandler.getSize();
                     gameObjectHandler.addItem( factory.create_object( x, y, "mario-small-idle-right-normal" ) );
                 }
             }
         }
+
+        cam = new Camera( 0, 32 * w, (Player) gameObjectHandler.getItem(playerIndex) );
     }
 
 }

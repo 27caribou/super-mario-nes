@@ -18,6 +18,9 @@ public class ItemFactory {
             case "block":
                 object = new GameObject( x, y, 32, 32, itemType, tex.get( "block-normal" ) );
                 break;
+            case "block2":
+                object = new GameObject( x, y, 32, 32, itemType, tex.get( "block2-normal" ) );
+                break;
             case "mystery-block":
                 object = new GameObject( x, y, 32, 32, itemType, tex.get( "mysteryblock-normal" ) );
                 break;
@@ -39,20 +42,29 @@ public class ItemFactory {
             case "cloud-small":
                 object = new CanvasItem( x, y, 64, 48, tex.get( itemType ) );
                 break;
+            case "cloud-medium":
+                object = new CanvasItem( x, y, 96, 48, tex.get( itemType ) );
+                break;
             case "cloud-large":
                 object = new CanvasItem( x, y, 128, 48, tex.get( itemType ) );
                 break;
             case "bush-small":
                 object = new CanvasItem( x, y, 64, 32, tex.get( itemType ) );
                 break;
+            case "bush-medium":
+                object = new CanvasItem( x + 9, y, 96, 32, tex.get( itemType ) );
+                break;
             case "bush-large":
                 object = new CanvasItem( x + 9, y, 128, 32, tex.get( itemType ) );
+                break;
+            case "castle-normal":
+                object = new CanvasItem( x, y, 160, 160, tex.get( itemType ) );
                 break;
             case "mario-small-idle-right-normal":
                 object = new Player( x, y, 32, 32, tex.get( "mario-small-idle-right-normal" ) );
                 break;
             default:
-                object = new CanvasItem( x, y, 32, 32, "red" );
+                object = new CanvasItem( x, y, 64, 64, "red" );
         }
 
         return object;

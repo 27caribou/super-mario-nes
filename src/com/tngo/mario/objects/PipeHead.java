@@ -15,12 +15,6 @@ public class PipeHead extends GameObject {
         super( x, y, width, height, "pipe-head", imgs );
     }
 
-    public Rectangle getBounds(){
-        return new Rectangle( (int)x + 4, (int)y, (int)width - 8, (int)height );
-    }
-
-    public void tick() {
-        super.tick();
-    }
+    public Rectangle getBounds(){ return new Rectangle( (int)x + 4, (int)y, (int)width - 8, (int)height ); }
 
 }

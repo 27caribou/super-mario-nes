@@ -81,9 +81,9 @@ public class Animation {
                 (int)animationH,
                 null
             );
-//        } else {
-            g.setColor( Color.ORANGE );
-            g.drawRect( x, y, width, height );
+        } else {
+            g.setColor( fallbackColor );
+            g.fillRect( x, y, width, height );
         }
     }
 
