@@ -60,6 +60,12 @@ public class ItemFactory {
             case "castle-normal":
                 object = new CanvasItem( x, y, 160, 160, tex.get( itemType ) );
                 break;
+            case "goomba":
+                object = new GameObject( x, y, 32, 32, itemType, tex.get( "goomba-normal" ) );
+                break;
+            case "koopa-g":
+                object = new GameObject( x, y, 32, 32, "koopa", tex.get( "koopa-g-left" ) );
+                break;
             case "mario-small-idle-right-normal":
                 object = new Player( x, y, 32, 32, tex.get( "mario-small-idle-right-normal" ) );
                 break;

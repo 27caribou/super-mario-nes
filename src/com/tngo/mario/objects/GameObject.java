@@ -47,6 +47,11 @@ public class GameObject extends CanvasItem {
         checkCollisions();
         checkFalling();
         if ( falling ) velocityY += gravity;
+
+        if ( x < 0 ) {
+            x = 0;
+            setVelocityX(0);
+        }
     }
 
     protected void checkCollisions() {

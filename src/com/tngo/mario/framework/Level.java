@@ -117,6 +117,10 @@ public class Level {
                     backgroundItemsHandler.addItem( factory.create_object( x, y, "bush-large" ) );
                 } else if ( red == 96 && green == 96 && blue == 96 ) {
                     backgroundItemsHandler.addItem( factory.create_object( x, y, "castle-normal" ) );
+                }  else if ( red == 244 && green == 212 && blue == 180 ) {
+                    gameObjectHandler.addItem( factory.create_object( x, y, "goomba" ) );
+                } else if ( red == 211 && green == 184 && blue == 156 ) {
+                    gameObjectHandler.addItem( factory.create_object( x, y, "koopa-g" ) );
                 } else if ( red == 0 && green == 0 && blue == 255 ) {
                     playerIndex = gameObjectHandler.getSize();
                     gameObjectHandler.addItem( factory.create_object( x, y, "mario-small-idle-right-normal" ) );

@@ -44,6 +44,7 @@ public class Texture {
         getBlockTex();
         getObjectTex();
         getPlayerTex();
+        getEnemyTex();
     }
 
     private void getLevelItemTex() {
@@ -378,6 +379,164 @@ public class Texture {
         bigTransformationLeft.add( player_sprites.grabImage( colStart + 2, rowStart + 2, size, size ) );
         bigTransformationLeft.add( player_sprites.grabImage( colStart, rowStart + 4, size, size * 2 ) );
         texMap.put( "mario-big-transformation-left-" + id, bigTransformationLeft );
+    }
+
+    private void getEnemyTex() {
+
+        List<BufferedImage> goombaNormal = new ArrayList<>();
+        goombaNormal.add( enemy_sprites.grabImage( 1, 1, size, size ) );
+        goombaNormal.add( enemy_sprites.grabImage( 2, 1, size, size ) );
+        texMap.put( "goomba-normal", goombaNormal );
+
+        List<BufferedImage> goombaDeadNormal = new ArrayList<>();
+        goombaDeadNormal.add( enemy_sprites.grabImage( 3, 1, size, size ) );
+        texMap.put( "goomba-dead-normal", goombaDeadNormal );
+
+        List<BufferedImage> goombaNight = new ArrayList<>();
+        goombaNight.add( enemy_sprites.grabImage( 4, 1, size, size ) );
+        goombaNight.add( enemy_sprites.grabImage( 5, 1, size, size ) );
+        texMap.put( "goomba-night", goombaNight );
+
+        List<BufferedImage> goombaDeadNight = new ArrayList<>();
+        goombaDeadNight.add( enemy_sprites.grabImage( 6, 1, size, size ) );
+        texMap.put( "goomba-dead-night", goombaDeadNight );
+
+        List<BufferedImage> piranhaPlantNormal = new ArrayList<>();
+        piranhaPlantNormal.add( enemy_sprites.grabImage( 7, 1, size, size ) );
+        piranhaPlantNormal.add( enemy_sprites.grabImage( 8, 1, size, size ) );
+        texMap.put( "piranhaplant-normal", piranhaPlantNormal );
+
+        List<BufferedImage> piranhaPlantNight = new ArrayList<>();
+        piranhaPlantNight.add( enemy_sprites.grabImage( 9, 1, size, size ) );
+        piranhaPlantNight.add( enemy_sprites.grabImage( 10, 1, size, size ) );
+        texMap.put( "piranhaplant-night", piranhaPlantNight );
+
+        List<BufferedImage> cheepCheepRLeft = new ArrayList<>();
+        cheepCheepRLeft.add( enemy_sprites.grabImage( 1, 2, size, size ) );
+        cheepCheepRLeft.add( enemy_sprites.grabImage( 2, 2, size, size ) );
+        texMap.put( "cheepcheep-r-left", cheepCheepRLeft );
+
+        List<BufferedImage> cheepCheepGLeft = new ArrayList<>();
+        cheepCheepGLeft.add( enemy_sprites.grabImage( 3, 2, size, size ) );
+        cheepCheepGLeft.add( enemy_sprites.grabImage( 4, 2, size, size ) );
+        texMap.put( "cheepcheep-g-left", cheepCheepGLeft );
+
+        List<BufferedImage> lakituLeft = new ArrayList<>();
+        lakituLeft.add( enemy_sprites.grabImage( 5, 2, size, size ) );
+        lakituLeft.add( enemy_sprites.grabImage( 6, 2, size, size ) );
+        texMap.put( "lakitu-left", lakituLeft );
+
+        List<BufferedImage> lakituRight = new ArrayList<>();
+        lakituRight.add( enemy_sprites.grabImage( 7, 2, size, size ) );
+        lakituRight.add( enemy_sprites.grabImage( 6, 2, size, size ) );
+        texMap.put( "lakitu-right", lakituRight );
+
+        List<BufferedImage> cheepCheepGRight = new ArrayList<>();
+        cheepCheepGRight.add( enemy_sprites.grabImage( 8, 2, size, size ) );
+        cheepCheepGRight.add( enemy_sprites.grabImage( 9, 2, size, size ) );
+        texMap.put( "cheepcheep-g-right", cheepCheepGRight );
+
+        List<BufferedImage> cheepCheepRRight = new ArrayList<>();
+        cheepCheepRRight.add( enemy_sprites.grabImage( 10, 2, size, size ) );
+        cheepCheepRRight.add( enemy_sprites.grabImage( 11, 2, size, size ) );
+        texMap.put( "cheepcheep-r-right", cheepCheepRRight );
+
+        List<BufferedImage> koopaFlyingGLeft = new ArrayList<>();
+        koopaFlyingGLeft.add( enemy_sprites.grabImage( 1, 3, size, size ) );
+        koopaFlyingGLeft.add( enemy_sprites.grabImage( 2, 3, size, size ) );
+        texMap.put( "koopa-flying-g-left", koopaFlyingGLeft );
+
+        List<BufferedImage> koopaGLeft = new ArrayList<>();
+        koopaGLeft.add( enemy_sprites.grabImage( 3, 3, size, size ) );
+        koopaGLeft.add( enemy_sprites.grabImage( 4, 3, size, size ) );
+        texMap.put( "koopa-g-left", koopaGLeft );
+
+        List<BufferedImage> koopaGDead = new ArrayList<>();
+        koopaGDead.add( enemy_sprites.grabImage( 5, 3, size, size ) );
+        texMap.put( "koopa-g-dead", koopaGDead );
+
+        List<BufferedImage> koopaGEmpty = new ArrayList<>();
+        koopaGEmpty.add( enemy_sprites.grabImage( 6, 3, size, size ) );
+        texMap.put( "koopa-g-empty", koopaGEmpty );
+
+        List<BufferedImage> koopaGRight = new ArrayList<>();
+        koopaGRight.add( enemy_sprites.grabImage( 7, 3, size, size ) );
+        koopaGRight.add( enemy_sprites.grabImage( 8, 3, size, size ) );
+        texMap.put( "koopa-g-right", koopaGRight );
+
+        List<BufferedImage> koopaFlyingGRight = new ArrayList<>();
+        koopaFlyingGRight.add( enemy_sprites.grabImage( 9, 3, size, size ) );
+        koopaFlyingGRight.add( enemy_sprites.grabImage( 10, 3, size, size ) );
+        texMap.put( "koopa-flying-g-right", koopaFlyingGRight );
+
+        List<BufferedImage> koopaFlyingRLeft = new ArrayList<>();
+        koopaFlyingRLeft.add( enemy_sprites.grabImage( 1, 4, size, size ) );
+        koopaFlyingRLeft.add( enemy_sprites.grabImage( 2, 4, size, size ) );
+        texMap.put( "koopa-flying-r-left", koopaFlyingRLeft );
+
+        List<BufferedImage> koopaRLeft = new ArrayList<>();
+        koopaRLeft.add( enemy_sprites.grabImage( 3, 4, size, size ) );
+        koopaRLeft.add( enemy_sprites.grabImage( 4, 4, size, size ) );
+        texMap.put( "koopa-r-left", koopaRLeft );
+
+        List<BufferedImage> koopaRDead = new ArrayList<>();
+        koopaRDead.add( enemy_sprites.grabImage( 5, 4, size, size ) );
+        texMap.put( "koopa-r-dead", koopaRDead );
+
+        List<BufferedImage> koopaREmpty = new ArrayList<>();
+        koopaREmpty.add( enemy_sprites.grabImage( 6, 4, size, size ) );
+        texMap.put( "koopa-r-empty", koopaREmpty );
+
+        List<BufferedImage> koopaRRight = new ArrayList<>();
+        koopaRRight.add( enemy_sprites.grabImage( 7, 4, size, size ) );
+        koopaRRight.add( enemy_sprites.grabImage( 8, 4, size, size ) );
+        texMap.put( "koopa-r-right", koopaRRight );
+
+        List<BufferedImage> koopaFlyingRRight = new ArrayList<>();
+        koopaFlyingRRight.add( enemy_sprites.grabImage( 9, 4, size, size ) );
+        koopaFlyingRRight.add( enemy_sprites.grabImage( 10, 4, size, size ) );
+        texMap.put( "koopa-flying-r-right", koopaFlyingRRight );
+
+        List<BufferedImage> hammerBroLeftNormal = new ArrayList<>();
+        hammerBroLeftNormal.add( enemy_sprites.grabImage( 1, 5, size, size ) );
+        hammerBroLeftNormal.add( enemy_sprites.grabImage( 2, 5, size, size ) );
+        hammerBroLeftNormal.add( enemy_sprites.grabImage( 3, 5, size, size ) );
+        texMap.put( "hammerbro-left-normal", hammerBroLeftNormal );
+
+        List<BufferedImage> hammerBroRightNormal = new ArrayList<>();
+        hammerBroRightNormal.add( enemy_sprites.grabImage( 4, 5, size, size ) );
+        hammerBroRightNormal.add( enemy_sprites.grabImage( 5, 5, size, size ) );
+        hammerBroRightNormal.add( enemy_sprites.grabImage( 6, 5, size, size ) );
+        texMap.put( "hammerbro-right-normal", hammerBroRightNormal );
+
+        List<BufferedImage> spinyLeft = new ArrayList<>();
+        spinyLeft.add( enemy_sprites.grabImage( 7, 5, size, size ) );
+        spinyLeft.add( enemy_sprites.grabImage( 8, 5, size, size ) );
+        texMap.put( "spiny-left", spinyLeft );
+
+        List<BufferedImage> spinyRight = new ArrayList<>();
+        spinyRight.add( enemy_sprites.grabImage( 9, 5, size, size ) );
+        spinyRight.add( enemy_sprites.grabImage( 10, 5, size, size ) );
+        texMap.put( "spiny-right", spinyRight );
+
+        List<BufferedImage> hammerBroLeftNight = new ArrayList<>();
+        hammerBroLeftNight.add( enemy_sprites.grabImage( 1, 6, size, size ) );
+        hammerBroLeftNight.add( enemy_sprites.grabImage( 2, 6, size, size ) );
+        hammerBroLeftNight.add( enemy_sprites.grabImage( 3, 6, size, size ) );
+        texMap.put( "hammerbro-left-night", hammerBroLeftNight );
+
+        List<BufferedImage> hammerBroRightNight = new ArrayList<>();
+        hammerBroRightNight.add( enemy_sprites.grabImage( 4, 6, size, size ) );
+        hammerBroRightNight.add( enemy_sprites.grabImage( 5, 6, size, size ) );
+        hammerBroRightNight.add( enemy_sprites.grabImage( 6, 6, size, size ) );
+        texMap.put( "hammerbro-right-night", hammerBroRightNight );
+
+        List<BufferedImage> bowser = new ArrayList<>();
+        bowser.add( enemy_sprites.grabImage( 1, 7, size * 2, size * 2 ) );
+        bowser.add( enemy_sprites.grabImage( 2, 7, size * 2, size * 2 ) );
+        bowser.add( enemy_sprites.grabImage( 3, 7, size * 2, size * 2 ) );
+        bowser.add( enemy_sprites.grabImage( 4, 7, size * 2, size * 2 ) );
+        texMap.put( "bowser", bowser );
     }
 
     public BufferedImage[] get( String key ) {
