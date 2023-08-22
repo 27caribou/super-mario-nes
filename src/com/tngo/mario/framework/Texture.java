@@ -60,17 +60,21 @@ public class Texture {
         mediumCloud.add( level_items_sprites.grabImage( 6, 1, size * 2, size ) );
         texMap.put( "cloud-medium", mediumCloud );
 
+        List<BufferedImage> pipePieceH = new ArrayList<>();
+        pipePieceH.add( level_items_sprites.grabImage( 8, 1, size, size ) );
+        texMap.put( "pipe-piece-h", pipePieceH );
+
         List<BufferedImage> smallBush = new ArrayList<>();
         smallBush.add( level_items_sprites.grabImage( 1, 2, size * 2, size ) );
         texMap.put( "bush-small", smallBush );
 
-        List<BufferedImage> pipeUp = new ArrayList<>();
-        pipeUp.add( level_items_sprites.grabImage( 6, 2, size * 2, size * 2 ) );
-        texMap.put( "pipe-up", pipeUp );
+        List<BufferedImage> pipeHeadV = new ArrayList<>();
+        pipeHeadV.add( level_items_sprites.grabImage( 6, 2, size * 2, size ) );
+        texMap.put( "pipe-head-v", pipeHeadV );
 
-        List<BufferedImage> pipePiece = new ArrayList<>();
-        pipePiece.add( level_items_sprites.grabImage( 8, 2, size, size ) );
-        texMap.put( "pipe-piece", pipePiece );
+        List<BufferedImage> pipePieceV = new ArrayList<>();
+        pipePieceV.add( level_items_sprites.grabImage( 8, 2, size, size ) );
+        texMap.put( "pipe-piece-v", pipePieceV );
 
         List<BufferedImage> mediumBush = new ArrayList<>();
         mediumBush.add( level_items_sprites.grabImage( 1, 3, size * 2, size ) );
@@ -79,6 +83,10 @@ public class Texture {
         List<BufferedImage> largeCloud = new ArrayList<>();
         largeCloud.add( level_items_sprites.grabImage( 3, 3, size * 3, size ) );
         texMap.put( "cloud-large", largeCloud );
+
+        List<BufferedImage> smallCloud = new ArrayList<>();
+        smallCloud.add( level_items_sprites.grabImage( 6, 3, size * 2, size ) );
+        texMap.put( "cloud-small", smallCloud );
 
         List<BufferedImage> finishPole = new ArrayList<>();
         finishPole.add( level_items_sprites.grabImage( 8, 3, size, size * 6 ) );
@@ -92,34 +100,22 @@ public class Texture {
         pipeConnector.add( level_items_sprites.grabImage( 4, 4, size * 2, size * 2 ) );
         texMap.put( "pipe-connector", pipeConnector );
 
-        List<BufferedImage> pipeLeft = new ArrayList<>();
-        pipeLeft.add( level_items_sprites.grabImage( 6, 4, size * 2, size * 2 ) );
-        texMap.put( "pipe-left", pipeLeft );
+        List<BufferedImage> pipeHeadH = new ArrayList<>();
+        pipeHeadH.add( level_items_sprites.grabImage( 6, 4, size, size * 2 ) );
+        texMap.put( "pipe-head-h", pipeHeadH );
 
-        List<BufferedImage> smallCloud = new ArrayList<>();
-        smallCloud.add( level_items_sprites.grabImage( 1, 5, size * 2, size ) );
-        texMap.put( "cloud-small", smallCloud );
+        List<BufferedImage> poleFlag = new ArrayList<>();
+        poleFlag.add( level_items_sprites.grabImage( 7, 4, size, size ) );
+        texMap.put( "flag-pole", poleFlag );
+
+        List<BufferedImage> castleFlag = new ArrayList<>();
+        castleFlag.add( level_items_sprites.grabImage( 7, 5, size, size ) );
+        texMap.put( "flag-castle", castleFlag );
 
         List<BufferedImage> castleNormal = new ArrayList<>();
         castleNormal.add( level_items_sprites.grabImage( 1, 6, size * 3, size * 3 ) );
         texMap.put( "castle-normal", castleNormal );
 
-        List<BufferedImage> poleFlag = new ArrayList<>();
-        poleFlag.add( level_items_sprites.grabImage( 4, 6, size, size ) );
-        texMap.put( "flag-pole", poleFlag );
-
-        List<BufferedImage> castleFlag = new ArrayList<>();
-        castleFlag.add( level_items_sprites.grabImage( 5, 6, size, size ) );
-        texMap.put( "flag-castle", castleFlag );
-
-        // To be removed later...
-        List<BufferedImage> pipeUpMedium = new ArrayList<>();
-        pipeUpMedium.add( level_items_sprites.grabImage( 4, 7, size * 2, size * 2 ) );
-        texMap.put( "pipe-up-medium", pipeUpMedium );
-
-        List<BufferedImage> pipeUpLarge = new ArrayList<>();
-        pipeUpLarge.add( level_items_sprites.grabImage( 6, 6, size * 2, size * 2 ) );
-        texMap.put( "pipe-up-large", pipeUpLarge );
     }
 
     private void getBlockTex() {
