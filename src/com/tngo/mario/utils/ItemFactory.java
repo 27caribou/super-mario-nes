@@ -2,10 +2,7 @@ package com.tngo.mario.utils;
 
 import com.tngo.mario.Game;
 import com.tngo.mario.framework.Texture;
-import com.tngo.mario.objects.CanvasItem;
-import com.tngo.mario.objects.GameObject;
-import com.tngo.mario.objects.PipeHead;
-import com.tngo.mario.objects.Player;
+import com.tngo.mario.objects.*;
 
 public class ItemFactory {
 
@@ -25,10 +22,10 @@ public class ItemFactory {
                 object = new GameObject( x, y, 32, 32, itemType, tex.get( "mysteryblock-normal" ) );
                 break;
             case "brick":
-                object = new GameObject( x, y, 32, 32, itemType, tex.get( "brick-normal" ) );
+                object = new Brick( x, y, "normal" );
                 break;
             case "pipe-head-v":
-                object = new PipeHead( x, y, 64, 32, tex.get( "pipe-head-v" ) );
+                object = new PipeHead( x, y, true );
                 break;
             case "pipe-piece":
                 object = new GameObject( x + 4, y, 56, 32, itemType, tex.get( "pipe-piece-v" ) );
@@ -67,7 +64,7 @@ public class ItemFactory {
                 object = new GameObject( x, y, 32, 32, "koopa", tex.get( "koopa-g-left" ) );
                 break;
             case "mario-small-idle-right-normal":
-                object = new Player( x, y, 32, 32, tex.get( "mario-small-idle-right-normal" ) );
+                object = new Player( x, y );
                 break;
             default:
                 object = new CanvasItem( x, y, 64, 64, "red" );

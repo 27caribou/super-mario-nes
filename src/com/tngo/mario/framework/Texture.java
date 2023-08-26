@@ -69,7 +69,7 @@ public class Texture {
         smallBush.add( level_items_sprites.grabImage( 1, 2, size * 2, size ) );
         texMap.put( "bush-small", smallBush );
 
-        List<BufferedImage> pipeHeadV = new ArrayList<>();
+        List<BufferedImage> pipeHeadV = new ArrayList<>(); // "v" for vertical pipe
         pipeHeadV.add( level_items_sprites.grabImage( 6, 2, size * 2, size ) );
         texMap.put( "pipe-head-v", pipeHeadV );
 
@@ -101,7 +101,7 @@ public class Texture {
         pipeConnector.add( level_items_sprites.grabImage( 4, 4, size * 2, size * 2 ) );
         texMap.put( "pipe-connector", pipeConnector );
 
-        List<BufferedImage> pipeHeadH = new ArrayList<>();
+        List<BufferedImage> pipeHeadH = new ArrayList<>(); // "h" for horizontal pipe
         pipeHeadH.add( level_items_sprites.grabImage( 6, 4, size, size * 2 ) );
         texMap.put( "pipe-head-h", pipeHeadH );
 

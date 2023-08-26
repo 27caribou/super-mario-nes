@@ -8,7 +8,6 @@ import java.awt.event.KeyEvent;
 public class KeyboardInput extends KeyAdapter {
 
     Player player;
-    boolean movedLeft = false, movedRight = false;
 
     public KeyboardInput( Player player ) {
         this.player = player;
@@ -18,37 +17,17 @@ public class KeyboardInput extends KeyAdapter {
         int key = e.getKeyCode();
 
         if ( key == KeyEvent.VK_ESCAPE ) { System.exit(1); }
-        if ( key == KeyEvent.VK_RIGHT ) {
-            player.setVelocityX(5);
-            movedRight = true;
-        }
-        if ( key == KeyEvent.VK_LEFT ) {
-            player.setVelocityX(-5);
-            movedLeft = true;
-        }
-        if ( key == KeyEvent.VK_SPACE && !player.isFalling() ) player.setVelocityY(-12);
+        if ( key == KeyEvent.VK_RIGHT ) player.moveRight();
+        if ( key == KeyEvent.VK_LEFT ) player.moveLeft();
+        if ( key == KeyEvent.VK_SPACE ) player.jump();
 //        if ( key == KeyEvent.VK_DOWN ) player.setVelocityY(5);
     }
 
     public void keyReleased( KeyEvent e ) {
         int key = e.getKeyCode();
 
-        if ( key == KeyEvent.VK_RIGHT ) {
-            movedRight = false;
-            if ( movedLeft ) {
-                player.setVelocityX(-5);
-            } else {
-                player.setVelocityX(0);
-            }
-        }
-        if ( key == KeyEvent.VK_LEFT ) {
-            movedLeft = false;
-            if ( movedRight ) {
-                player.setVelocityX(5);
-            } else {
-                player.setVelocityX(0);
-            }
-        }
+        if ( key == KeyEvent.VK_RIGHT ) player.stopMoveRight();
+        if ( key == KeyEvent.VK_LEFT ) player.stopMoveLeft();
 //        if ( key == KeyEvent.VK_SPACE ) player.setVelocityY(0);
 //        if ( key == KeyEvent.VK_DOWN ) player.setVelocityY(0);
     }

@@ -184,7 +184,7 @@ public class GameObject extends CanvasItem {
         }
     }
 
-    protected void handleCollision( int contactPoint, GameObject neighbor ) {
+    public void handleCollision( int contactPoint, GameObject neighbor ) {
         // Do nothing
     }
 
