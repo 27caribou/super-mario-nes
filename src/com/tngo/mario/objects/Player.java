@@ -25,6 +25,14 @@ public class Player extends GameObject {
         updateSprites();
     }
 
+    public void tick() {
+        super.tick();
+        if ( x < 0 ) {
+            x = 0;
+            stopMoveLeft();
+        }
+    }
+
     public void moveLeft() {
         setVelocityX(-5);
         if ( !movingLeft ) {
@@ -89,6 +97,10 @@ public class Player extends GameObject {
                 state = "running";
             }
             updateSprites();
+        } else if ( contactPoint == 2 ) {
+            stopMoveRight();
+        } else if ( contactPoint == 4 ) {
+            stopMoveLeft();
         }
 
         neighbor.handleCollision( 4 - contactPoint, this );

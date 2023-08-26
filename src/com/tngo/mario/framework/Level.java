@@ -12,14 +12,13 @@ import java.awt.image.BufferedImage;
 
 public class Level {
 
-    protected Handler gameObjectHandler, backgroundItemsHandler;
+    protected static Handler gameObjectHandler;
+    protected Handler backgroundItemsHandler;
     protected Camera cam;
     protected static QuadTree qtree;
     protected BufferedImage stageImage;
     protected int playerIndex;
     protected Color backgroundColor;
-
-    Texture tex = Game.getTex();
 
     public Level( Game game, String model, String backgroundColor ) {
         gameObjectHandler = new Handler();
@@ -85,9 +84,9 @@ public class Level {
                 int x = i * 32, y = j * 32;
 
                 if ( red == 200 && green == 76 && blue == 12 ) {
-                    gameObjectHandler.addItem( factory.create_object( x, y, "block" ) );
+                    gameObjectHandler.addItem( factory.create_object( x, y, "ground" ) );
                 } else if ( red == 204 && green == 64 && blue == 20 ) {
-                    gameObjectHandler.addItem( factory.create_object( x, y, "block2" ) );
+                    gameObjectHandler.addItem( factory.create_object( x, y, "ground2" ) );
                 } else if ( red == 252 && green == 152 && blue == 56 ) {
                     gameObjectHandler.addItem( factory.create_object( x, y, "mystery-block" ) );
                 } else if ( red == 249 && green == 184 && blue == 79 ) {
@@ -130,5 +129,8 @@ public class Level {
 
         cam = new Camera( 0, 32 * w, (Player) gameObjectHandler.getItem(playerIndex) );
     }
+
+    public static void addItem( GameObject item ) { gameObjectHandler.addItem( item ); }
+    public static void removeItem( GameObject item ) { gameObjectHandler.removeItem(item); }
 
 }

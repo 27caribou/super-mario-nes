@@ -12,17 +12,17 @@ public class ItemFactory {
         CanvasItem object;
 
         switch ( itemType ){
-            case "block":
-                object = new GameObject( x, y, 32, 32, itemType, tex.get( "block-normal" ) );
+            case "ground":
+                object = new GameObject( x, y, 32, 32, itemType, tex.get( "ground-normal" ) );
                 break;
-            case "block2":
-                object = new GameObject( x, y, 32, 32, itemType, tex.get( "block2-normal" ) );
+            case "ground2":
+                object = new GameObject( x, y, 32, 32, itemType, tex.get( "ground2-normal" ) );
                 break;
             case "mystery-block":
-                object = new GameObject( x, y, 32, 32, itemType, tex.get( "mysteryblock-normal" ) );
+                object = new Block( x, y, "mysteryblock", "normal" );
                 break;
             case "brick":
-                object = new Brick( x, y, "normal" );
+                object = new Block( x, y, "brick", "normal" );
                 break;
             case "pipe-head-v":
                 object = new PipeHead( x, y, true );

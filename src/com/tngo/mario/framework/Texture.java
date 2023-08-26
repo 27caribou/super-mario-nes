@@ -121,9 +121,9 @@ public class Texture {
 
     private void getBlockTex() {
 
-        List<BufferedImage> blockNormal = new ArrayList<>();
-        blockNormal.add( block_sprites.grabImage( 1, 1, size, size ) );
-        texMap.put( "block-normal", blockNormal );
+        List<BufferedImage> groundNormal = new ArrayList<>();
+        groundNormal.add( block_sprites.grabImage( 1, 1, size, size ) );
+        texMap.put( "ground-normal", groundNormal );
 
         List<BufferedImage> mysteryBlock = new ArrayList<>();
         mysteryBlock.add( block_sprites.grabImage( 2, 1, size, size ) );
@@ -135,17 +135,17 @@ public class Texture {
         mysteryBlockEmpty.add( block_sprites.grabImage( 5, 1, size, size ) );
         texMap.put( "mysteryblock-empty", mysteryBlockEmpty );
 
-        List<BufferedImage> block2Normal = new ArrayList<>();
-        block2Normal.add( block_sprites.grabImage( 6, 1, size, size ) );
-        texMap.put( "block2-normal", block2Normal );
+        List<BufferedImage> ground2Normal = new ArrayList<>();
+        ground2Normal.add( block_sprites.grabImage( 6, 1, size, size ) );
+        texMap.put( "ground2-normal", ground2Normal );
 
         List<BufferedImage> mysteryBlockEmptyNight = new ArrayList<>();
         mysteryBlockEmptyNight.add( block_sprites.grabImage( 7, 1, size, size ) );
         texMap.put( "mysteryblock-empty-night", mysteryBlockEmptyNight );
 
-        List<BufferedImage> blockNight = new ArrayList<>();
-        blockNight.add( block_sprites.grabImage( 8, 1, size, size ) );
-        texMap.put( "block-night", blockNight );
+        List<BufferedImage> groundNight = new ArrayList<>();
+        groundNight.add( block_sprites.grabImage( 8, 1, size, size ) );
+        texMap.put( "ground-night", groundNight );
 
         List<BufferedImage> brick = new ArrayList<>();
         brick.add( block_sprites.grabImage( 1, 2, size, size ) );
@@ -158,9 +158,9 @@ public class Texture {
         brickPiece.add( block_sprites.grabImage( 6, 2, size, size ) );
         texMap.put( "brickpiece-normal", brickPiece );
 
-        List<BufferedImage> block2Night = new ArrayList<>();
-        block2Night.add( block_sprites.grabImage( 8, 2, size, size ) );
-        texMap.put( "block2-night", block2Night );
+        List<BufferedImage> ground2Night = new ArrayList<>();
+        ground2Night.add( block_sprites.grabImage( 8, 2, size, size ) );
+        texMap.put( "ground2-night", ground2Night );
 
         List<BufferedImage> brickNight = new ArrayList<>();
         brickNight.add( block_sprites.grabImage( 1, 3, size, size ) );
