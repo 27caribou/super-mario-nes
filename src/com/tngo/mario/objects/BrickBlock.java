@@ -47,9 +47,17 @@ public class BrickBlock extends GameObject {
                     setSprites( tex.get( "brick-empty-" + style ) );
                 }
             } else {
-//                removeItem(this);
+                destroyBlock();
             }
         }
+    }
+
+    public void destroyBlock() {
+        removeItem(this);
+        addItem( new BrickPiece( x, y, -2, -13, "normal" ) );
+        addItem( new BrickPiece( x + width - 16, y, 2, -13, "normal" ) );
+        addItem( new BrickPiece( x, y + height - 16, -2, -8, "normal" ) );
+        addItem( new BrickPiece( x + width - 16, y + height - 16, 2, -8, "normal" ) );
     }
 
 }

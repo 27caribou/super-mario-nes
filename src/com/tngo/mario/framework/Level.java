@@ -40,7 +40,10 @@ public class Level {
 
     public void tick() {
         qtree.flush();
-        for ( int i = 0; i < gameObjectHandler.getSize(); i++ ) { qtree.insert( (GameObject) gameObjectHandler.getItem(i) ); }
+        for ( int i = 0; i < gameObjectHandler.getSize(); i++ ) {
+            if ( gameObjectHandler.getItem(i) instanceof GameObject )
+                qtree.insert( (GameObject) gameObjectHandler.getItem(i) );
+        }
 
         backgroundItemsHandler.tick();
         gameObjectHandler.tick();
@@ -130,7 +133,7 @@ public class Level {
         cam = new Camera( 0, 32 * w, (Player) gameObjectHandler.getItem(playerIndex) );
     }
 
-    public static void addItem( GameObject item ) { gameObjectHandler.addItem( item ); }
-    public static void removeItem( GameObject item ) { gameObjectHandler.removeItem(item); }
+    public static void addItem( CanvasItem item ) { gameObjectHandler.addItem( item ); }
+    public static void removeItem( CanvasItem item ) { gameObjectHandler.removeItem(item); }
 
 }
