@@ -19,10 +19,10 @@ public class ItemFactory {
                 object = new GameObject( x, y, 32, 32, itemType, tex.get( "ground2-normal" ) );
                 break;
             case "mystery-block":
-                object = new Block( x, y, "mysteryblock", "normal" );
+                object = new MysteryBlock( x, y, "normal", "coin" );
                 break;
             case "brick":
-                object = new Block( x, y, "brick", "normal" );
+                object = new BrickBlock( x, y, "normal" );
                 break;
             case "pipe-head-v":
                 object = new PipeHead( x, y, true );

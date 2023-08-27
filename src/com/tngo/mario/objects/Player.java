@@ -56,6 +56,7 @@ public class Player extends GameObject {
     public void jump() {
         if ( isFalling() ) return;
         setVelocityY(-12);
+        falling = true;
         state = "jumping";
         updateSprites();
     }
@@ -90,20 +91,25 @@ public class Player extends GameObject {
     }
 
     public void handleCollision( int contactPoint, GameObject neighbor ) {
-        if ( contactPoint == 3 ) {
+        super.handleCollision( contactPoint, neighbor );
+
+        if ( contactPoint == 1 ) {
+            if ( neighbor.getType() == "block" ) {
+                neighbor.handleCollision( 4 - contactPoint, this );
+            }
+        } else if ( contactPoint == 2 ) {
+            stopMoveRight();
+        } else if ( contactPoint == 3 ) {
             if ( velocityX == 0 ) {
                 state = "idle";
             } else {
                 state = "running";
             }
             updateSprites();
-        } else if ( contactPoint == 2 ) {
-            stopMoveRight();
-        } else if ( contactPoint == 4 ) {
+        } else {
             stopMoveLeft();
         }
 
-        neighbor.handleCollision( 4 - contactPoint, this );
     }
 
 }

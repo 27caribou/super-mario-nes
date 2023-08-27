@@ -60,31 +60,6 @@ public class GameObject extends CanvasItem {
             int contactPoint = rectIntersection( getBounds(), neighborRect );
             if ( contactPoint == 0 ) continue;
 
-            float diff;
-            switch ( contactPoint ){
-                case 1:
-                    diff = neighborRect.y + neighborRect.height - y + 1;
-                    y += diff; // y -= velocityY;
-                    falling = true;
-                    if ( velocityY < 0 ) velocityY = 0;
-                    break;
-                case 2:
-                    diff = x + width - neighborRect.x + 1;
-                    x -= diff; // x -= velocityX;
-                    velocityX = 0;
-                    break;
-                case 3:
-                    diff = y + height - neighborRect.y + 1;
-                    y -= diff; // y -= velocityY;
-                    falling = false;
-                    if ( velocityY > 0 ) velocityY = 0;
-                    break;
-                case 4:
-                    diff = neighborRect.x + neighborRect.width - x + 1;
-                    x += diff; // x -= velocityX;
-                    velocityX = 0;
-                    break;
-            }
             handleCollision(contactPoint, neighbor);
         }
     }
@@ -180,7 +155,36 @@ public class GameObject extends CanvasItem {
     }
 
     public void handleCollision( int contactPoint, GameObject neighbor ) {
-        // Do nothing
+        if ( neighbor.getType() == "coin" ) {
+            return;
+        }
+        Rectangle neighborRect = neighbor.getBounds();
+        float diff;
+
+        switch ( contactPoint ){
+            case 1:
+                diff = neighborRect.y + neighborRect.height - y + 1;
+                y += diff; // y -= velocityY;
+                falling = true;
+                if ( velocityY < 0 ) velocityY = 0;
+                break;
+            case 2:
+                diff = x + width - neighborRect.x + 1;
+                x -= diff; // x -= velocityX;
+                velocityX = 0;
+                break;
+            case 3:
+                diff = y + height - neighborRect.y + 1;
+                y -= diff; // y -= velocityY;
+                falling = false;
+                if ( velocityY > 0 ) velocityY = 0;
+                break;
+            case 4:
+                diff = neighborRect.x + neighborRect.width - x + 1;
+                x += diff; // x -= velocityX;
+                velocityX = 0;
+                break;
+        }
     }
 
 }
