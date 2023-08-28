@@ -14,7 +14,7 @@ public class Level {
 
     protected static Handler gameObjectHandler;
     protected Handler backgroundItemsHandler;
-    protected Camera cam;
+    protected static Camera cam;
     protected static QuadTree qtree;
     protected BufferedImage stageImage;
     protected int playerIndex;
@@ -136,4 +136,11 @@ public class Level {
     public static void addItem( CanvasItem item ) { gameObjectHandler.addItem( item ); }
     public static void removeItem( CanvasItem item ) { gameObjectHandler.removeItem(item); }
 
+    public static boolean itemIsVisible( CanvasItem item ) {
+        // I don't know if rendering items outside the camera impacts performance, but later can use it to conditionally render
+        return (
+            ( item.getX() > -cam.getX() && item.getX() < -cam.getX() + Game.WIDTH ) ||
+            ( item.getX() < -cam.getX() && item.getX() + item.getWidth() > -cam.getX() )
+        );
+    }
 }

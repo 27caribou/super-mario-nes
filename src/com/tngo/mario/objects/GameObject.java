@@ -155,9 +155,6 @@ public class GameObject extends CanvasItem {
     }
 
     public void handleCollision( int contactPoint, GameObject neighbor ) {
-        if ( neighbor.getType() == "coin" ) {
-            return;
-        }
         Rectangle neighborRect = neighbor.getBounds();
         float diff;
 

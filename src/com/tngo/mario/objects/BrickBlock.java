@@ -25,7 +25,11 @@ public class BrickBlock extends GameObject {
         setSprites( tex.get( "brick-" + style ) );
         this.style = style;
         originalY = y;
-        if ( numberOfCoins > 0 ) this.numberOfCoins = numberOfCoins;
+        if ( numberOfCoins > 0 ) {
+            this.numberOfCoins = numberOfCoins;
+        } else {
+            this.numberOfCoins = -1;
+        }
     }
 
     public void tick() {
@@ -39,14 +43,15 @@ public class BrickBlock extends GameObject {
     public void handleCollision( int contactPoint, GameObject neighbor ) {
         super.handleCollision( contactPoint, neighbor );
         if ( contactPoint == 3 && neighbor.getType() == "player" ) {
-            setVelocityY(-3);
+            if ( numberOfCoins != 0 ) setVelocityY(-3);
+
             if ( numberOfCoins > 0 ) {
                 numberOfCoins -= 1;
                 addItem( new Coin( x + 10, y - 32 ) );
                 if ( numberOfCoins == 0 ) {
-                    setSprites( tex.get( "brick-empty-" + style ) );
+                    setSprites( tex.get( "block-empty-" + style ) );
                 }
-            } else {
+            } else if ( numberOfCoins == -1 ) {
                 destroyBlock();
             }
         }

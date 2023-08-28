@@ -131,17 +131,17 @@ public class Texture {
         mysteryBlock.add( block_sprites.grabImage( 4, 1, size, size ) );
         texMap.put( "mysteryblock-normal", mysteryBlock );
 
-        List<BufferedImage> mysteryBlockEmpty = new ArrayList<>();
-        mysteryBlockEmpty.add( block_sprites.grabImage( 5, 1, size, size ) );
-        texMap.put( "mysteryblock-empty", mysteryBlockEmpty );
+        List<BufferedImage> blockEmptyNormal = new ArrayList<>();
+        blockEmptyNormal.add( block_sprites.grabImage( 5, 1, size, size ) );
+        texMap.put( "block-empty-normal", blockEmptyNormal );
 
         List<BufferedImage> ground2Normal = new ArrayList<>();
         ground2Normal.add( block_sprites.grabImage( 6, 1, size, size ) );
         texMap.put( "ground2-normal", ground2Normal );
 
-        List<BufferedImage> mysteryBlockEmptyNight = new ArrayList<>();
-        mysteryBlockEmptyNight.add( block_sprites.grabImage( 7, 1, size, size ) );
-        texMap.put( "mysteryblock-empty-night", mysteryBlockEmptyNight );
+        List<BufferedImage> blockEmptyNight = new ArrayList<>();
+        blockEmptyNight.add( block_sprites.grabImage( 7, 1, size, size ) );
+        texMap.put( "block-empty-night", blockEmptyNight );
 
         List<BufferedImage> groundNight = new ArrayList<>();
         groundNight.add( block_sprites.grabImage( 8, 1, size, size ) );

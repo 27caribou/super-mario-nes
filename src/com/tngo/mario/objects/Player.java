@@ -5,6 +5,8 @@ import com.tngo.mario.framework.Texture;
 
 import java.awt.image.BufferedImage;
 
+import static com.tngo.mario.framework.Level.removeItem;
+
 public class Player extends GameObject {
 
     Texture tex = Game.getTex();
@@ -30,6 +32,10 @@ public class Player extends GameObject {
         if ( x < 0 ) {
             x = 0;
             stopMoveLeft();
+        }
+        if ( y + height >= Game.HEIGHT ) {
+
+            // lose
         }
     }
 
@@ -95,7 +101,7 @@ public class Player extends GameObject {
 
         if ( contactPoint == 1 ) {
             if ( neighbor.getType() == "block" ) {
-                neighbor.handleCollision( 4 - contactPoint, this );
+                neighbor.handleCollision( 3, this );
             }
         } else if ( contactPoint == 2 ) {
             stopMoveRight();
