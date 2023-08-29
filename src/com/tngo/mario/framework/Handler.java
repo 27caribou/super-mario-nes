@@ -31,10 +31,8 @@ public class Handler {
         return items.get(i);
     }
 
-    public void addItem( CanvasItem newItem ) {
-        items.add(newItem);
-    }
-
+    public void addItem( CanvasItem newItem ) { items.add(newItem); }
+    public void addItemAtStart( CanvasItem newItem ) { items.addFirst(newItem); }
     public void removeItem( CanvasItem newItem ) {
         items.remove(newItem);
     }

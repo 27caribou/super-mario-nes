@@ -1,9 +1,8 @@
 package com.tngo.mario.objects;
 
-import static com.tngo.mario.framework.Level.addItem;
+import static com.tngo.mario.framework.Level.addItemAtStart;
 
 import com.tngo.mario.Game;
-import com.tngo.mario.framework.Handler;
 import com.tngo.mario.framework.Texture;
 
 public class MysteryBlock extends GameObject {
@@ -47,9 +46,9 @@ public class MysteryBlock extends GameObject {
 
     private void revealHiddenItem(){
         if ( hiddenItem == "coin" ) {
-            addItem( new Coin( x + 10, y - 32 ) );
+            addItemAtStart( new Coin( x + 10, y - 32 ) );
         } else if ( hiddenItem == "growth-mushroom" ) {
-            addItem( new Mushroom( x, y, "growth") );
+            addItemAtStart( new Mushroom( x, y, "growth") );
         }
     }
 

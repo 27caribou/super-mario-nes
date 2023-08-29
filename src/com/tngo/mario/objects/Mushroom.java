@@ -3,6 +3,8 @@ package com.tngo.mario.objects;
 import com.tngo.mario.Game;
 import com.tngo.mario.framework.Texture;
 
+import java.awt.*;
+
 import static com.tngo.mario.framework.Level.removeItem;
 
 public class Mushroom extends GameObject {
@@ -39,6 +41,10 @@ public class Mushroom extends GameObject {
 
         if ( x < 0 ) moveRight();
         if ( y >= Game.HEIGHT ) removeItem(this);
+    }
+
+    public void render( Graphics g ) {
+        if ( appeared || y < originalY - 8 ) super.render(g); // Sprite bleeds outside of block when this is not added
     }
 
     public void handleCollision( int contactPoint, GameObject neighbor ) {

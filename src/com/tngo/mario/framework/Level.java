@@ -135,6 +135,7 @@ public class Level {
     }
 
     public static void addItem( CanvasItem item ) { gameObjectHandler.addItem( item ); }
+    public static void addItemAtStart( CanvasItem item ) { gameObjectHandler.addItemAtStart( item );    }
     public static void removeItem( CanvasItem item ) { gameObjectHandler.removeItem(item); }
 
     public static boolean itemIsVisible( CanvasItem item ) {
