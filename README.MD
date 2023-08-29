@@ -20,6 +20,10 @@ completing the game.
 
 Hopefully, I will feel the inspiration again and pick up from where I left.
 
+**Bugs**
+- When Mario runs off the edge and falls, running animation is not replaced by falling animation looks like he is 
+running when falling off
+
 **Useful resources**
 - https://www.youtube.com/watch?v=OJxEcs0w_kE
 - https://www.youtube.com/watch?v=8JJ-4JgR7Dg

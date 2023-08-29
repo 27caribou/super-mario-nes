@@ -44,4 +44,8 @@ public class Enemy extends GameObject {
         }
     }
 
+    public void die() {
+        // Will differ depending on enemy type
+    }
+
 }
