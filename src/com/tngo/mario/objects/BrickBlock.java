@@ -18,6 +18,7 @@ public class BrickBlock extends GameObject {
         setSprites( tex.get( "brick-" + style ) );
         originalY = y;
         this.style = style;
+        numberOfCoins = -1;
     }
 
     public BrickBlock( float x, float y, String style, int numberOfCoins ) {
@@ -42,6 +43,7 @@ public class BrickBlock extends GameObject {
 
     public void handleCollision( int contactPoint, GameObject neighbor ) {
         super.handleCollision( contactPoint, neighbor );
+
         if ( contactPoint == 3 && neighbor.getType() == "player" ) {
             if ( numberOfCoins != 0 ) setVelocityY(-3);
 
@@ -52,7 +54,7 @@ public class BrickBlock extends GameObject {
                     setSprites( tex.get( "block-empty-" + style ) );
                 }
             } else if ( numberOfCoins == -1 ) {
-                destroyBlock();
+                if ( ((Player) neighbor).canDestroyBrick() ) destroyBlock();
             }
         }
     }

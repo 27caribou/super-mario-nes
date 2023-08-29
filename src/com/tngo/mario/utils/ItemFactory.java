@@ -18,8 +18,11 @@ public class ItemFactory {
             case "ground2":
                 object = new GameObject( x, y, 32, 32, itemType, tex.get( "ground2-normal" ) );
                 break;
-            case "mystery-block":
+            case "mystery-block-coin":
                 object = new MysteryBlock( x, y, "normal", "coin" );
+                break;
+            case "mystery-block-growth-mushroom":
+                object = new MysteryBlock( x, y, "normal", "growth-mushroom" );
                 break;
             case "brick":
                 object = new BrickBlock( x, y, "normal" );

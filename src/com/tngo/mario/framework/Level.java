@@ -3,7 +3,6 @@ package com.tngo.mario.framework;
 import com.tngo.mario.Game;
 import com.tngo.mario.objects.CanvasItem;
 import com.tngo.mario.objects.GameObject;
-import com.tngo.mario.objects.PipeHead;
 import com.tngo.mario.objects.Player;
 import com.tngo.mario.utils.*;
 
@@ -91,7 +90,9 @@ public class Level {
                 } else if ( red == 204 && green == 64 && blue == 20 ) {
                     gameObjectHandler.addItem( factory.create_object( x, y, "ground2" ) );
                 } else if ( red == 252 && green == 152 && blue == 56 ) {
-                    gameObjectHandler.addItem( factory.create_object( x, y, "mystery-block" ) );
+                    gameObjectHandler.addItem( factory.create_object( x, y, "mystery-block-coin" ) );
+                } else if ( red == 254 && green == 154 && blue == 58 ) {
+                    gameObjectHandler.addItem( factory.create_object( x, y, "mystery-block-growth-mushroom" ) );
                 } else if ( red == 249 && green == 184 && blue == 79 ) {
                     // This one should be hidden
                     gameObjectHandler.addItem( factory.create_object( x, y, "mystery-block" ) );

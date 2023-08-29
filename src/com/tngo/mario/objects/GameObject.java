@@ -14,7 +14,7 @@ public class GameObject extends CanvasItem {
     protected String type;
     protected float velocityX = 0, velocityY = 0;
     protected boolean falling = false;
-//    private final float MAX_SPEED = 10; Also to be used when falling
+    protected float defaultSpeed = 0;
     protected final float gravity = 0.5f;
 
     public GameObject( float x, float y, float width, float height, String type, String color ) {
@@ -183,5 +183,8 @@ public class GameObject extends CanvasItem {
                 break;
         }
     }
+
+    public void moveLeft() { if ( defaultSpeed != 0 ) setVelocityX( -defaultSpeed ); }
+    public void moveRight() { if ( defaultSpeed != 0 ) setVelocityX( defaultSpeed ); }
 
 }

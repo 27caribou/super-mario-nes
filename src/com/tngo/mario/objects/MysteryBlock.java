@@ -10,12 +10,16 @@ public class MysteryBlock extends GameObject {
 
     Texture tex = Game.getTex();
     private float originalY;
-    private String item;
+    private String style;
+    private String hiddenItem;
+    private boolean isEmpty = false;
 
-    public MysteryBlock( float x, float y, String style, String item ) {
+    public MysteryBlock( float x, float y, String style, String hiddenItem ) {
         super( x, y, 32, 32, "block", "white" );
         setSprites( tex.get( "mysteryblock-" + style ) );
+        this.style = style;
         originalY = y;
+        this.hiddenItem = hiddenItem;
     }
 
     public void tick() {
@@ -27,10 +31,25 @@ public class MysteryBlock extends GameObject {
     }
 
     public void handleCollision( int contactPoint, GameObject neighbor ) {
+        if ( neighbor instanceof Mushroom ) return;
         super.handleCollision( contactPoint, neighbor );
+
         if ( contactPoint == 3 && neighbor.getType() == "player" ) {
-            setVelocityY(-3);
+            if ( !isEmpty ) {
+                setVelocityY(-3);
+                revealHiddenItem();
+                setSprites( tex.get( "block-empty-" + style ) );
+
+                isEmpty = true;
+            }
+        }
+    }
+
+    private void revealHiddenItem(){
+        if ( hiddenItem == "coin" ) {
             addItem( new Coin( x + 10, y - 32 ) );
+        } else if ( hiddenItem == "growth-mushroom" ) {
+            addItem( new Mushroom( x, y, "growth") );
         }
     }
 

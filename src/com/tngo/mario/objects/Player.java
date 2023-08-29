@@ -3,8 +3,6 @@ package com.tngo.mario.objects;
 import com.tngo.mario.Game;
 import com.tngo.mario.framework.Texture;
 
-import java.awt.image.BufferedImage;
-
 import static com.tngo.mario.framework.Level.removeItem;
 
 public class Player extends GameObject {
@@ -29,15 +27,19 @@ public class Player extends GameObject {
 
     public void tick() {
         super.tick();
+        // Right now, player does not fall automatically if what object beneath it moves, but it doesn't
+        // This can be tweaked, but I doubt this use case will happen naturally in the game
+
         if ( x < 0 ) {
             x = 0;
             stopMoveLeft();
         }
         if ( y + height >= Game.HEIGHT ) {
-
             // lose
         }
     }
+
+    public boolean canDestroyBrick() { return size == "big"; }
 
     public void moveLeft() {
         setVelocityX(-5);
@@ -98,6 +100,11 @@ public class Player extends GameObject {
 
     public void handleCollision( int contactPoint, GameObject neighbor ) {
         super.handleCollision( contactPoint, neighbor );
+
+        if ( neighbor instanceof Mushroom ) {
+            removeItem(neighbor);
+            return;
+        }
 
         if ( contactPoint == 1 ) {
             if ( neighbor.getType() == "block" ) {
